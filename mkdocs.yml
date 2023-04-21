@@ -1,0 +1,23 @@
+site_name: Ridagop IDS Toolkit
+nav:
+  - Overview: index.md
+  - technical_overview.md
+  - "Schema": Schema/index.md
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  palette:
+    - scheme: default
+markdown_extensions:
+  - attr_list
+  - md_in_html
