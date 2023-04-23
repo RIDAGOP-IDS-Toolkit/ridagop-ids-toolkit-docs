@@ -64,15 +64,16 @@ TODO...
 
 #### UI-Elements
 
-The UI-Elements are defined per service. There are five types of UI-Elements that can be defined:
+The UI-Elements are defined per service. There are five types of UI-Elements that can be defined, which can be used for activities:
 
-- Input fields: 
-- Buttons:
-- Selects:
-- Checkboxes:
-- File-inputs: 
+- Input fields: For text input
+- Buttons: Buttons can be used to trigger activities
+- Selects: For selecting a value from a list
+- Checkboxes: To select from a boolean option
+- File-inputs: To load files that can be used as input for activities
 
-TODO...
+See the [UI-Elements section](/ui_elements.md) for more details.
+
 
 ### Activities
 
