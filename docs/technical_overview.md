@@ -13,6 +13,7 @@ ui-elements of services.
 The toolkit provides a set of json-schema files, that can be used to validate the process-page, process, bridge. There
 is also a json-schema file that integrates all of them and provides validation for an integrated proces-page description
 file.
+The json-schemas are described here in more detail in [the Schemas section](/Schemas).
 
 <figure markdown>
   ![Overview](assets/full-overview.png){ width="700"}
@@ -40,119 +41,56 @@ When a function is defined in multiple modules, the one of the most upper one mo
 
 Further detail about the components can be found in their respective API documentation.
 
-```json
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "http://localhost:8000/data/schema/idstk_schema/process_page/process_page.schema.json",
-  "$comment": "<ProcessPage>",
-  "title": "RIDAGOP toolkit ProcessPage-Schema",
-  "description": "A process-page description file for the RIDAGOP toolkit",
-  "type": "object",
-  "properties": {
-    "title": {
-      "type": "string",
-      "description": "The title of the process page"
-    },
-    "process": {
-      "type": "object",
-      "title": "Process",
-      "description": "The process to be used. Either the full instance or a uri to the process description.",
-      "$comment": "formatted like this, there are no strict-mode errors",
-      "properties": {
-        "$comment": {
-          "type": "string"
-        },
-        "uri": {
-          "type": "string",
-          "title": "URI to process",
-          "description": "The uri to the process description.",
-          "format": "uri"
-        },
-        "instance": {
-          "title": "Process instance",
-          "description": "The full process instance, which needs to be a valid Process",
-          "$ref": "/data/schema/idstk_schema/process/process.schema.json"
-        }
-      },
-      "oneOf": [
-        {
-          "properties": {
-            "uri": {
-              "title": "URI to process",
-              "description": "The uri to the process description.",
-              "type": "string",
-              "format": "uri"
-            }
-          },
-          "required": [
-            "uri"
-          ]
-        },
-        {
-          "properties": {
-            "instance": {
-              "title": "Process instance",
-              "description": "The full process instance, which needs to be a valid Process",
-              "$ref": "/data/schema/idstk_schema/process/process.schema.json"
-            }
-          },
-          "required": [
-            "instance"
-          ]
-        }
-      ],
-      "additionalProperties": false
-    },
-    "services": {
-      "type": "object",
-      "title": "Map of services (service-name: description)",
-      "description": "Process-page description for the services to be used in the process. The services here must match the services in the process.",
-      "additionalProperties": {
-        "$ref": "#/$defs/PP-Service"
-      },
-      "minProperties": 1
-    },
-    "uri": {
-      "$comment": "not sure why this is here",
-      "type": "string"
-    },
-    "view": {
-      "type": "object",
-      "title": "Page view mode",
-      "description": "type property defines if the page view should be generated (build) or if specified ui elements should be mapped to existing ui elements in the html page",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "build",
-            "map"
-          ]
-        }
-      }
-    },
-    "scriptUri": {
-      "title": "ProcessPage schema uri",
-      "description": "url to the process-page module. this module will be merged with the process module. Activities can use the module function when they specify a 'moduleFunction' instead of 'bridgeCapability'.",
-      "type": "string",
-      "format": "uri-reference"
-    },
-  "required": [
-    "process",
-    "services",
-    "schemaUri"
-  ],
-```
+### View modes
 
-### RIDAGOP toolkit ProcessPage-Schema
+Process pages can be displayed in two different view modes. 
+Either the page can be completely generated, meaning all input html elements will be generated (build-mode) 
+in map-mode, where the defined interaction elements will be mapped to existing html on the page. 
+Read more about the 2 view modes in the [View Modes section](/view_modes.md).
 
-_A process-page description file for the RIDAGOP toolkit_
+## Process
 
-__type__: object
+A process defines a set of __services__, which describe how the user can interact with external services.
 
-__properties__:
+A service, which has a bridge defines a set of activities and ui-elements that can be used to interact with the service.
+Next to the services the process can also define a `common` object, activities and ui-elements.
+This is particular useful, when activities, need to call activities from other services (in subActivities).
 
-  - title: _(string)_ The title of the process page
-  - process: _(object)_ __(required)__ The process to be used. Either the full instance or a uri to the process description.
-  - services: __(required)__ Process-page description for the services to be used in the process. The services here must match the services in the process.
-  - view: The type property of the view defines if the page view should be generated (build) or if specified ui elements should be mapped to existing ui elements in the html page
-  - schemaUri: _(string/format:uri-reference)_ __(required)__ Absolute or relative url to the process-page module. this module will be merged with the process module. Activities can use the module function when they specify a 'moduleFunction' instead of 'bridgeCapability'.
-  
+TODO...
+
+### Services
+
+TODO...
+
+#### UI-Elements
+
+The UI-Elements are defined per service. There are five types of UI-Elements that can be defined:
+
+- Input fields: 
+- Buttons:
+- Selects:
+- Checkboxes:
+- File-inputs: 
+
+TODO...
+
+### Activities
+
+TODO: create diagram.
+activity:
+
+- moduleFunction: 
+- bridgeCapability -> Bridge (bridgeCapability) -> Execution
+
+preProcess: ... (cancel)
+output: ...
+store: ...
+
+#### Activity parameter
+
+TODO...
+
+### Bridge
+
+TODO...
+

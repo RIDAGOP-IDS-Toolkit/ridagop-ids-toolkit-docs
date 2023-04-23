@@ -2,7 +2,7 @@ site_name: Ridagop IDS Toolkit
 nav:
   - Overview: index.md
   - technical_overview.md
-  - "Schema": Schema/index.md
+  - "Schemas": schemas.md
 theme:
   name: material
   features:
