@@ -154,5 +154,5 @@ is executed.
 
 ### Bridge
 
-Each service requires a bridge, which defines how the activities are executed.
+Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridges: 
 
