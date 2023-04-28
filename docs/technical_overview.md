@@ -154,5 +154,5 @@ is executed.
 
 ### Bridge
 
-TODO...
+Each service requires a bridge, which defines how the activities are executed.
 
