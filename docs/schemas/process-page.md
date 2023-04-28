@@ -24,7 +24,7 @@
 
 ## PP-Service
 - **`PP-Service`** *(object)*: A service as it is defined in the ProcessPage. Compared to Services defined in the Process, these cannot define activities.
-    - **`title`** *(string)*: The title of the service. Overwrites the til.
+    - **`title`** *(string)*: The title of the service. Overwrites the title in the process.
     - **`ui`**: Settings of the service UI part. Refer to *[PP-UISettings](#pp-uisettings)*. Default: `{}`.
     - **`parameters`** *(object)*: Parameters that are available to all activities of the service.
         - **Additional Properties**: Refer to *[process#P-Parameter](/Schema/process#p-parameter)*.

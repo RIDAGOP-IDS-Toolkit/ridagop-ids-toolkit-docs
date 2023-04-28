@@ -59,13 +59,15 @@ This is particular useful, when activities, need to call activities from other s
 
 TODO...
 
+Read here full details of the [process schema](schemas/process).
+
 ### Services
 
 Services are defined within a process and represent the interactions with external services that is used in the process.
 Processes need to be defined in both the process-page and the process instance. However the main part of a services,
 which are the definitions of the activities and ui-elements, are defined in the process.
 
-Most importantly the process-page definition of a service can:
+Most importantly the process-page definition of a service can ([full schema](/schemas/process-page#pp-service)):
 
 - define a new bridge
 - define new autostart activities (<- ??? REF)
@@ -73,7 +75,7 @@ Most importantly the process-page definition of a service can:
 - Define additional service-wide parameters
 - define additional text-fields and buttons (that can trigger activities)
 
-The process instance defines the crucial parts of a service, which are:
+The process instance defines the crucial parts of a service, which are ([full schema](/schemas/process#p-service)):
 
 - The bridge
 - activities
@@ -94,33 +96,49 @@ activities:
 
 See the [UI-Elements section](/ui_elements.md) for more details.
 
-### Activities
+## Activities
 
-#### Activity execution
+Activities are defined in the process and describe the interaction with a service. Activities are referring to some
+execution, which is defined in the bridge of the service.
+
+### Activity execution
 
 Activities must either reference a `bridgeCapability` or `moduleFunction`. A bridgeCapability is a reference to a
 bridge, which is defined in the process. A moduleFunction is a reference to a capability of the bridge of the service,
 while the bridge is defined in the process. The moduleFunction can be used to call a function of the bridge, which is
 defined in the bridge module. The bridge module is defined in the modules of the process-page or process.
 
-#### Required activities
+### Required activities
 
 Activities can refer to other activities (of the same service) that need to be executed before, this activity can be
 executed. This is in order to guarantee that some data, that is required by an activity are loaded/processed (by the
 required activities).
 
-#### Activity parameter
+### Activity parameter
 
-#### Preprocess execution
+Activities generally require some parameters, which are the parameters of the execution of the activity. The parameter description defines where the values of the parameters are coming from. The following parameter sources are possible:
+
+- Parent
+- Previous
+- Field
+- QueryParam
+- Constant
+- FileInput
+- Store
+- Generate
+- Dynamic
+
+
+### Preprocess execution
 
 It is also possible to refer to a module-function that is executed before the activity is executed.
 The preprocess activity takes the same parameters as the actual activity in form of a json-object (keys are parameter
 names) and can return json objects, where every key overwrites the parameter passed to the actual activity.
 Preprocess can also throw Errors, with the `cause` `cancel`, in order to cancel the activity execution.
 
-#### Handling activity results
+### Handling activity results
 
-##### Storing results
+#### Storing results
 
 The results of an activity can be stored in order to use them in other activities. The result can be stored in three
 different contexts, which defines, which other activities can access them. These contexts are:
@@ -129,11 +147,11 @@ different contexts, which defines, which other activities can access them. These
 - Service: The result can be accessed by all activities of the service
 - Activity: The result can be accessed by sub-activities
 
-##### Special results handling
+#### Special results handling
 
 Besides storing the results, there are also some special results handling options:
 
-###### Html Output
+##### Html Output
 
 The result of of an activity can be some HTML, which can be displayed in the UI.
 
@@ -142,17 +160,24 @@ just needs to be `true`.
 For mapped UIs, the property `resultAsOutputHtml` should specify a `string`, which should be the `id` of the html
 element, where the result should be displayed.
 
-###### Dynamic UI Elements
+##### Dynamic UI Elements
 
-The result of an activity can also be used to dynamically generate UI elements. The result of the activity should be a json-object that has the same structure of service uis (schema: [Process Service-UI](/schemas/process#p-serviceui))
+The result of an activity can also be used to dynamically generate UI elements. The result of the activity should be a
+json-object that has the same structure of service uis (schema: [Process Service-UI](/schemas/process#p-serviceui))
 The Ui-elements are added the Html-Element with the id `{service.name}_dyn_ui`.
 
-#### Sub-activities
+### Sub-activities
 
 An activity can also define sub-activities. These sub-activities are executed after the activity main (`parentActivity`)
 is executed.
 
 ### Bridge
 
-Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridges: 
+Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridges:
+
+- OpenAPI: The bridge is defined by an OpenAPI specification. The activities are executed by calling the endpoints of
+  the OpenAPI specification. Learn more about OpenAPI at [openapi.org](https://www.openapis.org/)
+- Client-Module: The bridge is defined by a javascript module, which defines functions that can be called by the
+  activities. 
+
 
