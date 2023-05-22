@@ -1,0 +1,752 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+    
+    
+      
+        <title>RIDAGOP toolkit Process-Schema - Ridagop IDS Toolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a6bdf11c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ridagop-toolkit-process-schema" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ridagop IDS Toolkit" class="md-header__button md-logo" aria-label="Ridagop IDS Toolkit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ridagop IDS Toolkit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RIDAGOP toolkit Process-Schema
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RIDAGOP-IDS-Toolkit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Overview
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../technical_overview/" class="md-tabs__link">
+      Technical overview
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../" class="md-tabs__link">
+      Schemas
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ridagop IDS Toolkit" class="md-nav__button md-logo" aria-label="Ridagop IDS Toolkit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Ridagop IDS Toolkit
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RIDAGOP-IDS-Toolkit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical_overview/" class="md-nav__link">
+        Technical overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Schemas
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ridagop-toolkit-process-schema">RIDAGOP toolkit Process-Schema<a class="headerlink" href="#ridagop-toolkit-process-schema" title="Permanent link">#</a></h1>
+<p><em>A process in the IDS toolkit</em></p>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>name</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the process. This is the name for internal identification (although there is only one process).</li>
+<li><strong><code>title</code></strong> <em>(string)</em>: The title of the process.</li>
+<li><strong><code>description</code></strong> <em>(string)</em>: A description of the process. (For other developers).</li>
+<li><strong><code>services</code></strong> <em>(object)</em> <strong>(required)</strong> : Services with their UI-elements and activities.<ul>
+<li><strong>Additional Properties</strong>: Each key specifies the name of a service. Refer to <em><a href="#p-service">P-Service</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>common</code></strong> <em>(object)</em>: Common activities and ui elements (access to activities of other services). Default: <code>{'ui': {}, 'activities': {}}</code>.<ul>
+<li><strong><code>ui</code></strong> <em>(object)</em>: UI-elements that are available for the activities defined in the common section. Default: <code>{}</code>.<ul>
+<li><strong><code>buttons</code></strong> <em>(object)</em>: UI-Buttons. These buttons can trigger activities of all services of this process.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: key is the name of the button.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em> <strong>(required)</strong> : The label of the button.</li>
+<li><strong><code>triggerActivity</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the activity that is triggered. The activity must be of the same service.</li>
+<li><strong><code>activityService</code></strong> <em>(string)</em>: The name of the service that contains the activity that is triggered.</li>
+<li><strong><code>triggerSequence</code></strong> <em>(string)</em>: The name of the sequence that is triggered. The sequence must be of the same service.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>activities</code></strong> <em>(object)</em>: Some activities. Consider that the bridge does not have a bridge, so these activities can only have module-functions.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: Each key specifies the name of an activity.<ul>
+<li><strong><code>One of (1)</code></strong>: Refer to <em><a href="#p-activity">P-Activity</a></em>.</li>
+<li><strong><code>One of (2)</code></strong>: Refer to <em><a href="#p-commonactivity">P-CommonActivity</a></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>sequences</code></strong> <em>(object)</em>: A sequence is a list of activities. This is for convenience for tirggereing multiple activities at once.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em><ul>
+<li><strong><code>title</code></strong> <em>(string)</em>: The user visible title of the sequence.</li>
+<li><strong><code>activities</code></strong> <em>(array)</em>: The list of activities that are executed when the sequence is triggered.<ul>
+<li><strong>Items</strong> <em>(string)</em>: The name of an activity.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>scriptUri</code></strong> <em>(string/format: uri-reference)</em>: The URI of the script that is used to run the process.</li>
+</ul>
+<h2 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">#</a></h2>
+<h2 id="p-service">P-Service<a class="headerlink" href="#p-service" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-Service</code></strong> <em>(object)</em>: A service as it is defined in the Process. Includes UI-elements, activities and shared parameters and the bridge.<ul>
+<li><strong><code>title</code></strong> <em>(string)</em>: The user visible title of the service.</li>
+<li><strong><code>ui</code></strong>: The UI-elements of the service. Refer to <em><a href="#p-serviceui">P-ServiceUI</a></em>. Default: <code>{}</code>.</li>
+<li><strong><code>parameters</code></strong> <em>(object)</em>: Parameters that are usable by all activities of this service.<ul>
+<li><strong>Additional Properties</strong>: Refer to <em><a href="#p-parameter">P-Parameter</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>autostart</code></strong>: Activities that are started on page load.</li>
+<li><strong><code>bridge</code></strong>: The bridge of this service. Refer to <em><a href="#p-bridgedefinition">P-BridgeDefinition</a></em>.</li>
+<li><strong><code>activities</code></strong> <em>(object)</em>: The activities of this service.<ul>
+<li><strong>Additional Properties</strong>: Each key specifies the name of an activity. Refer to <em><a href="#p-activity">P-Activity</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>sequences</code></strong> <em>(object)</em>: A sequence is a list of activities. This is for convenience for tirggereing multiple activities at once.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: Each key specifies the name of a sequence.<ul>
+<li><strong><code>title</code></strong> <em>(string)</em>: The user visible title of the sequence.</li>
+<li><strong><code>activities</code></strong> <em>(array)</em>: The list of activities that are executed when the sequence is triggered.<ul>
+<li><strong>Items</strong> <em>(string)</em>: The name of an activity.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-activity">P-Activity<a class="headerlink" href="#p-activity" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-Activity</code></strong> <em>(object)</em>: An activity which uses the bridge or a module function.<ul>
+<li><strong><code>preProcess</code></strong> <em>(string)</em>: a module function that is called before the activity is executed.</li>
+<li><strong><code>comment</code></strong> <em>(string)</em>: A comment.</li>
+<li><strong><code>parameters</code></strong> <em>(object)</em>: Parameters that are required by this activity.<ul>
+<li><strong>Additional Properties</strong>: A parameter-name defined by the bridgeCapability or moduleFunction. Refer to <em><a href="#p-parameter">P-Parameter</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>requestBody</code></strong> <em>(object)</em>: The request body of the activity (only relevant when using OpenAPI execution).<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: Used when the body is multipart/form-data.</li>
+<li><strong><code>data</code></strong> <em>(object)</em>: Used when the body is a JSON object.<ul>
+<li><strong><code>fileInput</code></strong> <em>(string)</em>: The name of the file input html-Element.</li>
+<li><strong><code>store</code></strong>: Some data in the store. Refer to <em><a href="#p-storeaccess">P-StoreAccess</a></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>requiredActivities</code></strong> <em>(array)</em>: A list of activities that must be executed before this activity is executed.<ul>
+<li><strong>Items</strong> <em>(object)</em>: An activity that needs to be executed before this activity can be executed.<ul>
+<li><strong><code>serviceName</code></strong> <em>(string)</em>: The name of the service that contains the activity.</li>
+<li><strong><code>activityName</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the activity.</li>
+<li><strong><code>errorMessage</code></strong> <em>(string)</em>: The error message that is shown when the activity is not executed (only for generated UI).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>storeResult</code></strong>: Storing the result of the activity for later use. Refer to <em><a href="#p-store">P-Store</a></em>.</li>
+<li><strong><code>subActivities</code></strong> <em>(object)</em>: Sub-activities are activities that are executed after this parent activity is executed.<ul>
+<li><strong>Additional Properties</strong>: Each key specifies the name of a sub-activity. Refer to <em><a href="#p-activity">P-Activity</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>ui</code></strong> <em>(object)</em>: Some UI related settings for the activity.<ul>
+<li><strong><code>includeInStatus</code></strong> <em>(boolean)</em>: If true, the activity is included in the status of the service (default true).</li>
+<li><strong><code>resultAsOutputHtml</code></strong>: If the result of the activity should be shown on the page. For generated UI, there is a output section for each service. For mapped UI, a string can be used in order to specify the html element (element id).<ul>
+<li><strong><code>One of (1)</code></strong> <em>(boolean)</em></li>
+<li><strong><code>One of (2)</code></strong> <em>(string)</em></li>
+</ul>
+</li>
+<li><strong><code>resultAsDynamicUI</code></strong> <em>(boolean)</em>: The result of this activity is used to generate some new UI-elements. The result data needs to validate against the process-Service UI schema.</li>
+<li><strong><code>alert</code></strong> <em>(boolean)</em>: Configure if the activity should show an alert when it is finished (default on top level activities is true).</li>
+</ul>
+</li>
+<li><strong><code>debug</code></strong> <em>(object)</em>: Some debug related settings for the activity.<ul>
+<li><strong><code>execute</code></strong> <em>(boolean)</em>: If false, the activity is not executed (default true).</li>
+<li><strong><code>resultData</code></strong> <em>(object)</em>: Instead of executing the activity, the resultData is used as the result of the activity.</li>
+</ul>
+</li>
+<li><strong><code>One of (1)</code></strong><ul>
+<li><strong><code>title</code></strong> <em>(string)</em> <strong>(required)</strong> : The user visible title of the activity.</li>
+<li><strong><code>bridgeCapability</code></strong> <strong>(required)</strong> : The name of the bridge capability that is used to execute the activity. Refer to <em><a href="/Schema/capabilities_names_list">capabilities_names_list</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>One of (2)</code></strong><ul>
+<li><strong><code>title</code></strong> <em>(string)</em> <strong>(required)</strong> : The user visible title of the activity.</li>
+<li><strong><code>moduleFunction</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the module function (??? FROM WHERE) that is used to execute the activity.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-serviceui">P-ServiceUI<a class="headerlink" href="#p-serviceui" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-ServiceUI</code></strong> <em>(object)</em>: The UI of a service. Consider that many of the properties are only relevant when the Ui is generated. Default: <code>{}</code>.<ul>
+<li><strong><code>inputFields</code></strong> <em>(object)</em>: Inputfields are text-fields or text-areas.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: key is the name of the input field.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em>: The label of the input field.</li>
+<li><strong><code>fromQueryParam</code></strong> <em>(string)</em>: If this property is set, the field is initiated with the value of the query parameter.</li>
+<li><strong><code>default</code></strong> <em>(string)</em>: The default value of the input field.</li>
+<li><strong><code>textArea</code></strong> <em>(boolean)</em>: If true, the input field is a text area (which is nicer for longer inputs.</li>
+<li><strong><code>inputActions</code></strong> <em>(object)</em>: Adds a small button next to the input. Clicking that or pressing enter triggers an action.<ul>
+<li><strong><code>autoAction</code></strong> <em>(string)</em>: The name of the action that is triggered.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>buttons</code></strong> <em>(object)</em>: Buttons are used to trigger actions.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: key is the name of the button.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em>: The label of the button.</li>
+<li><strong><code>triggerActivity</code></strong> <em>(string)</em>: The name of the activity that is triggered. The activity must be of the same service.</li>
+<li><strong><code>triggerSequence</code></strong> <em>(string)</em>: The name of the sequence that is triggered. The sequence must be of the same service.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>checkBoxes</code></strong> <em>(object)</em>: Checkboxes are used to trigger actions.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: key is the name of the checkbox.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em>: The label of the checkbox.</li>
+<li><strong><code>default</code></strong> <em>(boolean)</em>: The default value of the checkbox. Default: <code>False</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>selects</code></strong> <em>(object)</em>: Selects items.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: key is the name of the select.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em>: The label of the select.</li>
+<li><strong><code>options</code></strong> <em>(array)</em>: The options of the select.<ul>
+<li><strong>Items</strong> <em>(object)</em>: An individual option.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em> <strong>(required)</strong> : The label of the option visible to the user.</li>
+<li><strong><code>value</code></strong> <em>(string)</em> <strong>(required)</strong> : The value of the option.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>default</code></strong> <em>(string)</em>: The default value of the select.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>fileInputs</code></strong> <em>(object)</em>: File inputs are used to upload files.<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: key is the name of the file input.<ul>
+<li><strong><code>label</code></strong> <em>(string)</em>: The label of the file input.</li>
+<li><strong><code>accept</code></strong> <em>(string)</em>: The file types that are accepted (MIME type).</li>
+<li><strong><code>binary</code></strong> <em>(boolean)</em>: If true, the file is read as binary. Otherwise it is read as text.</li>
+<li><strong><code>readImmediately</code></strong> <em>(boolean)</em>: If true, the file is read immediately. Otherwise it is read when an activity that requires it is triggered.</li>
+<li><strong><code>keepAsFile</code></strong> <em>(boolean)</em>: If true, the file is not read but just used like that in a multipart-form.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-commonactivity">P-CommonActivity<a class="headerlink" href="#p-commonactivity" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-CommonActivity</code></strong> <em>(object)</em>: A activity in the common section of the process, can be a regular activity or a reference to an activity of any service.<ul>
+<li><strong><code>One of (1)</code></strong><ul>
+<li><strong><code>preProcess</code></strong> <em>(string)</em>: a module function that is called before the activity is executed.</li>
+<li><strong><code>comment</code></strong> <em>(string)</em>: A comment for developers.</li>
+<li><strong><code>parameters</code></strong> <em>(object)</em>: Parameters that are required by this activity.<ul>
+<li><strong>Additional Properties</strong>: Refer to <em><a href="#p-parameter">P-Parameter</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>requestBody</code></strong> <em>(object)</em>: The request body of the activity (only relevant when using OpenAPI execution).<ul>
+<li><strong>Additional Properties</strong> <em>(object)</em>: Used when the body is multipart/form-data.</li>
+<li><strong><code>data</code></strong> <em>(object)</em>: Used when the body is a JSON object.<ul>
+<li><strong><code>fileInput</code></strong> <em>(string)</em>: The name of the file input html-Element.</li>
+<li><strong><code>store</code></strong>: Some data in the store. Refer to <em><a href="#p-storeaccess">P-StoreAccess</a></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>requiredActivities</code></strong> <em>(array)</em>: A list of activities that must be executed before this activity is executed.<ul>
+<li><strong>Items</strong> <em>(object)</em>: An activity that needs to be executed before this activity can be executed.<ul>
+<li><strong><code>serviceName</code></strong> <em>(string)</em>: The name of the service that contains the activity.</li>
+<li><strong><code>activityName</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the activity.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>storeResult</code></strong>: Storing the result of the activity for later use. Not exactly like in a service. The context can only be process or activity.<ul>
+<li><strong><code>context</code></strong> <em>(string)</em>: The context of the variable.<br>                - Process: Variable is available by all services and their activities.<br>                - Service: Variable is available by all activities of this service.<br>                - Activity: Variable is available to this activity and its sub-activities and deleted afterwards.
+ Must be one of: <code>['process', 'activity']</code>. Default: <code>service</code>.</li>
+<li><strong><code>key</code></strong> <em>(string)</em> <strong>(required)</strong> : key in the store ( dots are not allowed).</li>
+</ul>
+</li>
+<li><strong><code>subActivities</code></strong> <em>(object)</em>: Sub-activities are activities that are executed after this parent activity is executed.<ul>
+<li><strong>Additional Properties</strong>: Each key specifies the name of a sub-activity (Either a normal activity or a reference). Refer to <em><a href="#p-commonactivity">P-CommonActivity</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>debug</code></strong> <em>(object)</em>: Some debug related settings for the activity.<ul>
+<li><strong><code>execute</code></strong> <em>(boolean)</em>: If false, the activity is not executed (default true).</li>
+<li><strong><code>resultData</code></strong> <em>(object)</em>: Instead of executing the activity, the resultData is used as the result of the activity.</li>
+</ul>
+</li>
+<li><strong><code>One of (1)</code></strong><ul>
+<li><strong><code>title</code></strong> <em>(string)</em> <strong>(required)</strong> : The title of the activity.</li>
+<li><strong><code>bridgeCapability</code></strong> <strong>(required)</strong> : The bridge-capability that is used for this activity. Refer to <em><a href="/Schema/capabilities_names_list">capabilities_names_list</a></em>.</li>
+</ul>
+</li>
+<li><strong><code>One of (2)</code></strong><ul>
+<li><strong><code>title</code></strong> <em>(string)</em> <strong>(required)</strong> : The title of the activity.</li>
+<li><strong><code>moduleFunction</code></strong> <em>(string)</em> <strong>(required)</strong> : The function that is used to execute the activity.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>One of (2)</code></strong>: A reference to a activity that is defined in a service of the process.<ul>
+<li><strong><code>title</code></strong> <em>(string)</em> <strong>(required)</strong> : The user visible title of the activity.</li>
+<li><strong><code>serviceName</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the service that has the activity that should be executed.</li>
+<li><strong><code>activityName</code></strong> <em>(string)</em> <strong>(required)</strong> : The name of the activity that should be executed.</li>
+<li><strong><code>subActivities</code></strong> <em>(object)</em>: Sub-activities are activities that are executed after this parent activity is executed.<ul>
+<li><strong>Additional Properties</strong><ul>
+<li><strong><code>One of (1)</code></strong>: A normal activity. Refer to <em><a href="#p-activity">P-Activity</a></em>.</li>
+<li><strong><code>One of (2)</code></strong>: An activity of reference activity. Refer to <em><a href="#p-commonactivity">P-CommonActivity</a></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>debug</code></strong> <em>(object)</em>: Some debug related settings for the activity.<ul>
+<li><strong><code>execute</code></strong> <em>(boolean)</em>: If false, the activity is not executed (default true).</li>
+<li><strong><code>resultData</code></strong> <em>(object)</em>: Instead of executing the activity, the resultData is used as the result of the activity.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-postprocess">P-PostProcess<a class="headerlink" href="#p-postprocess" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-PostProcess</code></strong> <em>(array)</em>: function that processes the activity result before it is stored or passed on to other activities.</li>
+</ul>
+<h2 id="p-parameter">P-Parameter<a class="headerlink" href="#p-parameter" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-Parameter</code></strong> <em>(object)</em>: Parameter for an activity.<ul>
+<li><strong><code>type</code></strong> <em>(string)</em>: Type of the parameter value. Must be one of: <code>['string', 'number', 'boolean']</code>.</li>
+<li><strong><code>parent</code></strong>: Result from the parent activity passed down (to this sub-activity).</li>
+<li><strong><code>previous</code></strong>: Result from the previous sub-activity.</li>
+<li><strong><code>field</code></strong> <em>(string)</em>: Data from an Inputfield, Checkbox or Select.</li>
+<li><strong><code>queryParam</code></strong> <em>(string)</em>: Data from a URL-query parameter.</li>
+<li><strong><code>constant</code></strong> <em>(string)</em>: A constant non changing value specified here.</li>
+<li><strong><code>fileInput</code></strong> <em>(string)</em>: Data from a file-input field UI-Element.</li>
+<li><strong><code>store</code></strong>: Data from the store. Refer to <em><a href="#p-storeaccess">P-StoreAccess</a></em>.</li>
+<li><strong><code>generate</code></strong> <em>(object)</em>: Generate a value based on an activity.<ul>
+<li><strong><code>bridgeCapability</code></strong> <em>(string)</em>: The name of the bridge capability that is used to execute the activity.</li>
+<li><strong><code>moduleFunction</code></strong> <em>(string)</em>: The name of the module function (??? FROM WHERE) that is used to execute the activity.</li>
+<li><strong><code>parameters</code></strong> <em>(object)</em>: Parameters that are required by this activity.<ul>
+<li><strong>Additional Properties</strong>: A parameter-name defined by the bridgeCapability or moduleFunction defined for this 'generate' parameters. Refer to <em><a href="#p-parameter">P-Parameter</a></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>dynamic</code></strong> <em>(boolean)</em>: if true, the parameter is not passed to the activity, but is used to generate a dynamic UI.</li>
+<li><strong><code>comment</code></strong> <em>(string)</em>: A comment for other developers.</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-servicebridge">P-ServiceBridge<a class="headerlink" href="#p-servicebridge" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-ServiceBridge</code></strong> <em>(object)</em>: The bridge for this service.<ul>
+<li><strong><code>One of (1)</code></strong><ul>
+<li><strong><code>uri</code></strong> <em>(string/format: uri-reference)</em> <strong>(required)</strong> : The URI of the bridge description json file.</li>
+</ul>
+</li>
+<li><strong><code>One of (2)</code></strong><ul>
+<li><strong><code>instance</code></strong> <strong>(required)</strong> : The bridge description. Refer to <em><a href="/Schema/bridge">bridge</a></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-bridgedefinition">P-BridgeDefinition<a class="headerlink" href="#p-bridgedefinition" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-BridgeDefinition</code></strong> <em>(object)</em>: The bridge definition, containing the source (either uri or the whole instance) and some additional properties.<ul>
+<li><strong><code>source</code></strong> <strong>(required)</strong> : The source (uri or instance). Refer to <em><a href="#p-servicebridge">P-ServiceBridge</a></em>.</li>
+<li><strong><code>server</code></strong>: The server host of this service bridge. Refer to <em><a href="#p-bridgeserverhost">P-BridgeServerHost</a></em>.</li>
+<li><strong><code>authorization</code></strong> <em>(object)</em>: From where to take the authorization code for OpenAPI bridge. Usually a API/Auth-Token.<ul>
+<li><strong>Additional Properties</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-bridgeserverhost">P-BridgeServerHost<a class="headerlink" href="#p-bridgeserverhost" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-BridgeServerHost</code></strong>: The server host of this service bridge.<ul>
+<li><strong><code>One of (1)</code></strong> <em>(string/format: uri)</em>: The server host of this service bridge.</li>
+<li><strong><code>One of (2)</code></strong> <em>(object)</em>: from a input-field UI-Element (textfield/textarea).<ul>
+<li><strong><code>field</code></strong> <em>(string)</em> <strong>(required)</strong> : Name of the input-field UI-Element.</li>
+</ul>
+</li>
+<li><strong><code>One of (3)</code></strong> <em>(object)</em><ul>
+<li><strong><code>queryParam</code></strong> <em>(string)</em> <strong>(required)</strong> : URL query parameter.</li>
+</ul>
+</li>
+<li><strong><code>One of (4)</code></strong> <em>(object)</em><ul>
+<li><strong><code>constant</code></strong> <em>(string/format: uri)</em> <strong>(required)</strong> : a constant non changing value.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-store">P-Store<a class="headerlink" href="#p-store" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-Store</code></strong> <em>(object)</em>: Description for storing activity results. Results can be stored on 3 levels (context), in order to prevent name collisions: process, service (default), activity.<ul>
+<li><strong><code>context</code></strong> <em>(string)</em>: The context of the variable.<br>        - Process: Variable is available by all services and their activities.<br>        - Service: Variable is available by all activities of this service.<br>        - Activity: Variable is available to this activity and its sub-activities and deleted afterwards.
+ Must be one of: <code>['process', 'service', 'activity']</code>. Default: <code>service</code>.</li>
+<li><strong><code>key</code></strong> <em>(string)</em> <strong>(required)</strong> : key in the store ( dots are not allowed).</li>
+</ul>
+</li>
+</ul>
+<h2 id="p-storeaccess">P-StoreAccess<a class="headerlink" href="#p-storeaccess" title="Permanent link">#</a></h2>
+<ul>
+<li><strong><code>P-StoreAccess</code></strong> <em>(object)</em>: Description for accessing a stored value.<ul>
+<li><strong><code>context</code></strong> <em>(string)</em>: From which context to access the variable. See <a href="#p-store">P-Store</a>. Must be one of: <code>['service', 'process', 'activity']</code>. Default: <code>service</code>.</li>
+<li><strong><code>key</code></strong> <em>(string)</em> <strong>(required)</strong> : key in the store.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>
