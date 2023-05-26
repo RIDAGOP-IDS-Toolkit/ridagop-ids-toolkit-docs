@@ -23,6 +23,7 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: "#"
-
+watch_ignore:
+  - '*.md~'
 repo_url: https://github.com/RIDAGOP-IDS-Toolkit
 repo_name: GitHub

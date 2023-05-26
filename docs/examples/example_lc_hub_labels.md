@@ -1,8 +1,15 @@
-# Local Contexts Hub Label
+# Local Contexts Label - Dataverse
 
 ## Introduction
 
-...
+[Local Contexts](https://localcontexts.org) is a global initiative that supports Indigenous communities with tools that attribute cultural authority of heritage and data. 
+By focusing on Indigenous Cultural and Intellectual Property and Indigenous Data Sovereignty, Local Contexts helps Indigenous communities repatriate knowledge and gain control over how their data is collected, managed, displayed, accessed, and used in the future.
+
+The Local Contexts Project developed TK and BC Labels (traditional knowledge and Biocultural) through sustained partnership within Indigenous communities. “The Labels allow communities to express local and specific conditions for sharing and engaging in future research and relationships in ways that are consistent with already existing community rules, 
+governance and protocols for using, sharing and circulating knowledge and data.”
+
+The [Local Contexts Hub](https://localcontextshub.org/) works in tandem with already existing information/collections management systems and tools. The Hub generates Labels and Notices (with permanent identifiers) so these can be added to already existing catalog and collections management systems.
+
 
 ## Structure
 

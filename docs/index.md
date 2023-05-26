@@ -58,6 +58,25 @@ Generally speaking there are two ways of doing that. Either through a *bridge-mo
 that exports functions which communicate with the repository/service or with an OpenAPI json file, which
 contains all endpoints of the service.
 
+## Technical Requirements
+
+The toolkit is a Javascript module that can easily be integrated on any web environment. 
+A Process-page that is in the style of a website and contains the required input fields and buttons that are required for the process should be preferred.   
+
+## Use cases
+
+With the development we also created two use cases, that demonstrate how the toolkit can be used.
+The process work with the Dataverse repository system.
+
+
+The first one is a process that allows communities to add their own Local Contexts Labels to a Dataverse dataset.
+For that specific use case, we created a [metadata block for Dataverse, which you can find here](https://github.com/RIDAGOP-IDS-Toolkit/tklabel/blob/main/localcontexts_dv_metadatablock.csv).
+Find a description of the [Local Contexts - Dataverse process here](examples/example_lc_hub_labels). 
+
+The second use case is a process that allows communities to restrict access to a dataset by default and have a simple but complete data application process in place.
+It relies on email as a form of communication between the data authorities and the applicant. This process includes two different processes, one for the data authorities and one for the applicant. 
+Find a description of the [Local Contexts - Dataverse process here](examples/example_lc_hub_labels). 
+
 # What is required to create a Process for a specific Data repository
 
 
