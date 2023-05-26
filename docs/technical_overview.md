@@ -15,6 +15,43 @@ is also a json-schema file that integrates all of them and provides validation f
 file.
 The json-schemas are described here in more detail in [the Schemas section](/Schemas).
 
+## Installation and setup
+
+The javascript can be integrated like this:
+
+``` html
+<!-- index.html -->
+...
+<script src="path/to/toolkit/index.js"></script>
+...
+<body>
+  <!-- your static content in case the process-page is not generating the page -->
+  <script>
+      window.onload = function() {
+          try {
+              _init_toolkit_(`path/to/process-file.json`)
+          } catch (e) {
+              console.error(e)
+          }
+      }
+  </script>
+</body>
+```
+
+While developing new processes it is recommended to start generating the page and then switch to map-mode, when all
+activities and interactions with the services are set.
+
+While writing the instances of the individual components it might be useful to use a json-schema validator, to constantly check the validity of the json files.
+There are 4 json-schema files. One for the process-page, one for the process and one for the bridge and one that combines all of them, which is a extended json-schema for a process-page (which can integrate the other instances).
+The json-schema files can be found here ###
+A documentation for the individual components [can be found here](schemas.md).
+
+The toolkit has a robust validation system integrated, next to the json-schema validation raising errors about missing
+or wrong defined components.
+
+## Overview
+
+
 <figure markdown>
   ![Overview](assets/full-overview.png){ width="700"}
 </figure>
@@ -116,7 +153,8 @@ required activities).
 
 ### Activity parameter
 
-Activities generally require some parameters, which are the parameters of the execution of the activity. The parameter description defines where the values of the parameters are coming from. The following parameter sources are possible:
+Activities generally require some parameters, which are the parameters of the execution of the activity. The parameter
+description defines where the values of the parameters are coming from. The following parameter sources are possible:
 
 - Parent
 - Previous
@@ -127,7 +165,6 @@ Activities generally require some parameters, which are the parameters of the ex
 - Store
 - Generate
 - Dynamic
-
 
 ### Preprocess execution
 

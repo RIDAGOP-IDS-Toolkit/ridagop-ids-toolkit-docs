@@ -3,14 +3,17 @@ nav:
   - Overview: index.md
   - technical_overview.md
   - "Schemas": schemas.md
+  - examples.md
 theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
-    - toc.integrate
+    - navigation.tracking
     - navigation.top
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.tabs.link
@@ -23,7 +26,9 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: "#"
-watch_ignore:
-  - '*.md~'
+plugins:
+  - exclude:
+      glob:
+        - "*.md~"
 repo_url: https://github.com/RIDAGOP-IDS-Toolkit
 repo_name: GitHub

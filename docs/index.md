@@ -1,10 +1,11 @@
 # RIDAGOP IDS toolkit
 
-What is the IDS toolkit? 
-  
+![](assets/RIDAGOP-LOGO.jpg)
+ 
+## Introduction
+
 Indigenous data sovereignty involves ensuring that Indigenous people have ownership and control over the collection, use, and management of their own data. Centralized data repositories can make it difficult for Indigenous communities to access and control their own data. They may be subject to restrictive policies and procedures that limit who can access the data, how it can be used, and where it can be stored. This can undermine Indigenous self-determination and limit the ability of Indigenous communities to use their own data to inform decision-making, planning, and development. 
 
- 
 The Research on Indigenous Data Governance Protocols (RIDAGOP) toolkit tries to tackle some of these problems, by allowing developers to create data-management processes that can interact with data repositories and can be used with custom built websites, tailored to the requirements of individuals communities, peoples, institutions or requests.  
 
 The toolkit's data management processes can include: 
@@ -28,6 +29,8 @@ The following diagram shows a general overview of how the different components o
 <figure markdown>
   ![Overview](assets/overview.png){ width="400"}
 </figure>
+
+## Main components
 
 ### Processes
 Process files are abstract descriptions of what a process is supposed to do and what the individual components (e.g., data-repositories, metadata catalogues, ...) are required to be capable of, in order to function within this process. It does not specify which repository or datasets should be used.
@@ -68,15 +71,28 @@ A Process-page that is in the style of a website and contains the required input
 With the development we also created two use cases, that demonstrate how the toolkit can be used.
 The process work with the Dataverse repository system.
 
-
 The first one is a process that allows communities to add their own Local Contexts Labels to a Dataverse dataset.
 For that specific use case, we created a [metadata block for Dataverse, which you can find here](https://github.com/RIDAGOP-IDS-Toolkit/tklabel/blob/main/localcontexts_dv_metadatablock.csv).
 Find a description of the [Local Contexts - Dataverse process here](examples/example_lc_hub_labels). 
 
 The second use case is a process that allows communities to restrict access to a dataset by default and have a simple but complete data application process in place.
 It relies on email as a form of communication between the data authorities and the applicant. This process includes two different processes, one for the data authorities and one for the applicant. 
-Find a description of the [Local Contexts - Dataverse process here](examples/example_lc_hub_labels). 
+Find a description of the [Data Access Request](examples/example_data_access_request). 
 
-# What is required to create a Process for a specific Data repository
+Both example use cases can easily be extended and adapted to work in other manners. 
+Because of the modular design of the toolkit, it is for example possible to adapt a processes with other repositories and other types of metadata.
+It is important to note that each repository system might have different capabilities and might require different ways of realizing a process.
+While Dataverse for example provides a way to protect dataset files and make them only accessible to specific users on request, 
+a process that does not require somebody to create an account on the repository system requires a specific way of making data accessible (through private links for draft datasets).
+
+## Process Library
+
+Next to the Toolkit we provide a repository with a collection of processes that can be used with the toolkit.
+The repository can be found here:
+https://github.com/RIDAGOP-IDS-Toolkit/process-library
+Everyone is invited to contribute to the process library by making a pull request to the repository.
 
 
+
+
+![](assets/LOGO-4-1024x511.jpg)
