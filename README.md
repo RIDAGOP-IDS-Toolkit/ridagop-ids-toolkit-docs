@@ -1,4 +1,4 @@
-# ridagop-ids-toolkit-docs
+# RIDAGOP IDS Toolkit documentation
 
 The main pages are created with [mkdocs material](https://squidfunk.github.io/mkdocs-material/)
 The schema is generated
