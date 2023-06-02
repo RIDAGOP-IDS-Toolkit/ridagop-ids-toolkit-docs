@@ -1,17 +1,15 @@
-# RIDAGOP toolkit ProcessPage-Schema
-
-*A process-page description file for the RIDAGOP toolkit*
+# RIDAGOP IDS Toolkit ProcessPage Schema
 
 ## Properties
 
 - **`title`** *(string)*: The title of the process page.
 - **`process`** *(object)* **(required)** : The process to be used. Either the full instance or a uri to the process description.
     - **`comment`** *(string)*: A comment for other developers.
-    - **`One of (1)`**
+    - **`One of (1)`** *(object)*
         - **`uri`** *(string/format: uri)* **(required)** : The uri to the process description.
-    - **`One of (2)`**
+    - **`One of (2)`** *(object)*
         - **`instance`** **(required)** : The full process instance, which needs to be a valid Process. Refer to *[process](/Schema/process)*.
-- **`services`** *(object)* **(required)** : Process-page description for the services to be used in the process. The services here must match the services in the process.
+- **`services`** *(object)*: Process-page description for the services to be used in the process. The services here must match the services in the process.
     - **Additional Properties**: Keys are service names. Refer to *[PP-Service](#pp-service)*.
 - **`view`** *(object)*: The type property of the view defines if the page view should be generated (build) or if specified ui elements should be mapped to existing ui elements in the html page.
     - **`type`** *(string)*: The type of the view ('build' or 'map'). Must be one of: `['build', 'map']`.
@@ -24,7 +22,7 @@
 
 ## PP-Service
 - **`PP-Service`** *(object)*: A service as it is defined in the ProcessPage. Compared to Services defined in the Process, these cannot define activities.
-    - **`title`** *(string)*: The title of the service. Overwrites the title in the process.
+    - **`title`** *(string)*: The title of the service. Overwrites the til.
     - **`ui`**: Settings of the service UI part. Refer to *[PP-UISettings](#pp-uisettings)*. Default: `{}`.
     - **`parameters`** *(object)*: Parameters that are available to all activities of the service.
         - **Additional Properties**: Refer to *[process#P-Parameter](/Schema/process#p-parameter)*.

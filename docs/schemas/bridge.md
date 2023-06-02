@@ -4,10 +4,10 @@
 
 ## Properties
 
-- **`execute`** *(object)* **(required)** : Defines the type of execution. Either by using an OpenAPI-Specification or by using a client library.
-    - **`One of (1)`**: OpenAPI-Specification.
+- **`execute`** **(required)** : Defines the type of execution. Either by using an OpenAPI-Specification or by using a client library.
+    - **`One of (1)`** *(object)*: OpenAPI-Specification.
         - **`openapiSchemaUri`** *(string/format: uri-reference)* **(required)** : The URI of the OpenAPI-Specification.
-    - **`One of (2)`**: Client library module.
+    - **`One of (2)`** *(object)*: Client library module.
         - **`apiClientModuleUri`** *(string/format: uri-reference)* **(required)** : The URI of the module that contains the client library.
 - **`capabilities`** *(object)* **(required)** : Defines the capabilities of the bridge.
     - **Additional Properties** *(object)*: Each name defines a capability. The allowed names are defined in the capabilities_names_list.json file.

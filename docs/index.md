@@ -8,7 +8,7 @@ Indigenous data sovereignty involves ensuring that Indigenous people have owners
 
 The Research on Indigenous Data Governance Protocols (RIDAGOP) toolkit tries to tackle some of these problems, by allowing developers to create data-management processes that can interact with data repositories and can be used with custom built websites, tailored to the requirements of individuals communities, peoples, institutions or requests.  
 
-The toolkit's data management processes can include: 
+The toolkits data management processes can include: 
 
 - Storing data in ways that are secure, reliable, and accessible to Indigenous communities, peoples, organisations or institutions.  
 
@@ -89,10 +89,7 @@ a process that does not require somebody to create an account on the repository 
 
 Next to the Toolkit we provide a repository with a collection of processes that can be used with the toolkit.
 The repository can be found here:
-https://github.com/RIDAGOP-IDS-Toolkit/process-library
-Everyone is invited to contribute to the process library by making a pull request to the repository.
-
-
+[Ridagop Process Library on Github](https://github.com/RIDAGOP-IDS-Toolkit/process-library).
 
 
 ![](assets/LOGO-4-1024x511.jpg)

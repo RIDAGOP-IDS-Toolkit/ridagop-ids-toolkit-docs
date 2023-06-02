@@ -21,7 +21,7 @@
         - **Additional Properties** *(object)*: Each key specifies the name of an activity.
             - **`One of (1)`**: Refer to *[P-Activity](#p-activity)*.
             - **`One of (2)`**: Refer to *[P-CommonActivity](#p-commonactivity)*.
-    - **`sequences`** *(object)*: A sequence is a list of activities. This is for convenience for tirggereing multiple activities at once.
+    - **`sequences`** *(object)*: A sequence is a list of activities. This is for convenience for triggering multiple activities at once.
         - **Additional Properties** *(object)*
             - **`title`** *(string)*: The user visible title of the sequence.
             - **`activities`** *(array)*: The list of activities that are executed when the sequence is triggered.
@@ -39,7 +39,7 @@
     - **`bridge`**: The bridge of this service. Refer to *[P-BridgeDefinition](#p-bridgedefinition)*.
     - **`activities`** *(object)*: The activities of this service.
         - **Additional Properties**: Each key specifies the name of an activity. Refer to *[P-Activity](#p-activity)*.
-    - **`sequences`** *(object)*: A sequence is a list of activities. This is for convenience for tirggereing multiple activities at once.
+    - **`sequences`** *(object)*: A sequence is a list of activities. This is for convenience for triggering multiple activities at once.
         - **Additional Properties** *(object)*: Each key specifies the name of a sequence.
             - **`title`** *(string)*: The user visible title of the sequence.
             - **`activities`** *(array)*: The list of activities that are executed when the sequence is triggered.
@@ -75,7 +75,7 @@
         - **`resultData`** *(object)*: Instead of executing the activity, the resultData is used as the result of the activity.
     - **`One of (1)`**
         - **`title`** *(string)* **(required)** : The user visible title of the activity.
-        - **`bridgeCapability`** **(required)** : The name of the bridge capability that is used to execute the activity. Refer to *[capabilities_names_list](/Schema/capabilities_names_list)*.
+        - **`bridgeCapability`** **(required)** : The name of the bridge capability that is used to execute the activity. Refer to *[capabilities_list](/Schema/capabilities_list)*.
     - **`One of (2)`**
         - **`title`** *(string)* **(required)** : The user visible title of the activity.
         - **`moduleFunction`** *(string)* **(required)** : The name of the module function (??? FROM WHERE) that is used to execute the activity.
@@ -97,7 +97,7 @@
     - **`checkBoxes`** *(object)*: Checkboxes are used to trigger actions.
         - **Additional Properties** *(object)*: key is the name of the checkbox.
             - **`label`** *(string)*: The label of the checkbox.
-            - **`default`** *(boolean)*: The default value of the checkbox. Default: `False`.
+            - **`default`** *(boolean)*: The default value of the checkbox.
     - **`selects`** *(object)*: Selects items.
         - **Additional Properties** *(object)*: key is the name of the select.
             - **`label`** *(string)*: The label of the select.
@@ -129,9 +129,9 @@
             - **Items** *(object)*: An activity that needs to be executed before this activity can be executed.
                 - **`serviceName`** *(string)*: The name of the service that contains the activity.
                 - **`activityName`** *(string)* **(required)** : The name of the activity.
-        - **`storeResult`**: Storing the result of the activity for later use. Not exactly like in a service. The context can only be process or activity.
-            - **`context`** *(string)*: The context of the variable.<br>                - Process: Variable is available by all services and their activities.<br>                - Service: Variable is available by all activities of this service.<br>                - Activity: Variable is available to this activity and its sub-activities and deleted afterwards.
- Must be one of: `['process', 'activity']`. Default: `service`.
+        - **`storeResult`** *(object)*: Storing the result of the activity for later use. Not exactly like in a service. The context can only be process or activity.
+            - **`context`** *(string)*: The context of the variable.<br>                - Process: Variable is available by all services and their activities.<br>                - Service: Variable is available by all activities of this service.<br>                - Activity: Variable is available to this activity and its sub-activities and deleted afterwards. (default: process)
+. Must be one of: `['process', 'activity']`.
             - **`key`** *(string)* **(required)** : key in the store ( dots are not allowed).
         - **`subActivities`** *(object)*: Sub-activities are activities that are executed after this parent activity is executed.
             - **Additional Properties**: Each key specifies the name of a sub-activity (Either a normal activity or a reference). Refer to *[P-CommonActivity](#p-commonactivity)*.
@@ -140,7 +140,7 @@
             - **`resultData`** *(object)*: Instead of executing the activity, the resultData is used as the result of the activity.
         - **`One of (1)`**
             - **`title`** *(string)* **(required)** : The title of the activity.
-            - **`bridgeCapability`** **(required)** : The bridge-capability that is used for this activity. Refer to *[capabilities_names_list](/Schema/capabilities_names_list)*.
+            - **`bridgeCapability`** **(required)** : The bridge-capability that is used for this activity. Refer to *[capabilities_list](/Schema/capabilities_list)*.
         - **`One of (2)`**
             - **`title`** *(string)* **(required)** : The title of the activity.
             - **`moduleFunction`** *(string)* **(required)** : The function that is used to execute the activity.
@@ -197,8 +197,8 @@
         - **`constant`** *(string/format: uri)* **(required)** : a constant non changing value.
 ## P-Store
 - **`P-Store`** *(object)*: Description for storing activity results. Results can be stored on 3 levels (context), in order to prevent name collisions: process, service (default), activity.
-    - **`context`** *(string)*: The context of the variable.<br>        - Process: Variable is available by all services and their activities.<br>        - Service: Variable is available by all activities of this service.<br>        - Activity: Variable is available to this activity and its sub-activities and deleted afterwards.
- Must be one of: `['process', 'service', 'activity']`. Default: `service`.
+    - **`context`** *(string)*: The context of the variable.<br>        - Process: Variable is available by all services and their activities.<br>        - Service: Variable is available by all activities of this service.<br>        - Activity: Variable is available to this activity and its sub-activities and deleted afterwards. (default: service)
+. Must be one of: `['process', 'service', 'activity']`.
     - **`key`** *(string)* **(required)** : key in the store ( dots are not allowed).
 ## P-StoreAccess
 - **`P-StoreAccess`** *(object)*: Description for accessing a stored value.

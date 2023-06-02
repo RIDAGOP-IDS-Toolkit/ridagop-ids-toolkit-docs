@@ -13,7 +13,7 @@ ui-elements of services.
 The toolkit provides a set of json-schema files, that can be used to validate the process-page, process, bridge. There
 is also a json-schema file that integrates all of them and provides validation for an integrated proces-page description
 file.
-The json-schemas are described here in more detail in [the Schemas section](/Schemas).
+The json-schemas are described here in more detail in [the Schemas section](/schemas).
 
 ## Installation and setup
 
@@ -43,8 +43,8 @@ activities and interactions with the services are set.
 
 While writing the instances of the individual components it might be useful to use a json-schema validator, to constantly check the validity of the json files.
 There are 4 json-schema files. One for the process-page, one for the process and one for the bridge and one that combines all of them, which is a extended json-schema for a process-page (which can integrate the other instances).
-The json-schema files can be found here ###
-A documentation for the individual components [can be found here](schemas.md).
+The json-schema files can be found here in the [toolkit repository](https://github.com/RIDAGOP-Toolkit/ridagop-toolkit/tree/main/schemas).
+A documentation for the individual components [can be found here](/schemas).
 
 The toolkit has a robust validation system integrated, next to the json-schema validation raising errors about missing
 or wrong defined components.
@@ -53,10 +53,10 @@ or wrong defined components.
 
 
 <figure markdown>
-  ![Overview](assets/full-overview.png){ width="700"}
+  ![Overview](/assets/full-overview.png){ width="700" }
 </figure>
 
-Following components of a complete process can be separated into different files json:
+Following components of a complete process can be separated into different json files:
 
 - Process-Page
 - Process
@@ -65,7 +65,7 @@ Following components of a complete process can be separated into different files
     - OpenAPI-specification
     - client-module (javascript module)
 
-However, it also possible to combine all components into one file (except the client-module).
+However, it also possible to combine all components into one file (except the OpenAPI spec and the client-module).
 
 In addition, there can be separate javascript modules, that be referenced by specific components:
 
@@ -84,7 +84,7 @@ Further detail about the components can be found in their respective API documen
 Process pages can be displayed in two different view modes.
 Either the page can be completely generated, meaning all input html elements will be generated (build-mode)
 in map-mode, where the defined interaction elements will be mapped to existing html on the page.
-Read more about the 2 view modes in the [View Modes section](/view_modes.md).
+Read more about the 2 view modes on the [User interface page](/ui).
 
 ## Process
 
@@ -92,18 +92,15 @@ A process defines a set of __services__, which describe how the user can interac
 
 A service, which has a bridge defines a set of activities and ui-elements that can be used to interact with the service.
 Next to the services the process can also define a `common` object, activities and ui-elements.
-This is particular useful, when activities, need to call activities from other services (in subActivities).
+This is particular useful, when activities, need to call other activities from other services (in subActivities).
 
-TODO...
 
 Read here full details of the [process schema](schemas/process).
 
 ### Services
 
 Services are defined within a process and represent the interactions with external services that is used in the process.
-Processes need to be defined in both the process-page and the process instance. However the main part of a services,
-which are the definitions of the activities and ui-elements, are defined in the process.
-
+However the main part of a services, 
 Most importantly the process-page definition of a service can ([full schema](/schemas/process-page#pp-service)):
 
 - define a new bridge
@@ -131,7 +128,7 @@ activities:
 - Checkboxes: To select from a boolean option
 - File-inputs: To load files that can be used as input for activities
 
-See the [UI-Elements section](/ui_elements.md) for more details.
+See the [UI-Elements section](/ui.md) for more details.
 
 ## Activities
 
@@ -140,10 +137,13 @@ execution, which is defined in the bridge of the service.
 
 ### Activity execution
 
-Activities must either reference a `bridgeCapability` or `moduleFunction`. A bridgeCapability is a reference to a
-bridge, which is defined in the process. A moduleFunction is a reference to a capability of the bridge of the service,
-while the bridge is defined in the process. The moduleFunction can be used to call a function of the bridge, which is
-defined in the bridge module. The bridge module is defined in the modules of the process-page or process.
+Every activity needs to specify what execution of the bridge is should invoke. This is done by specifying
+the `bridgeCapability` or the `moduleFunction` property.
+In the case of the `bridgeCapability` property, it will invoke a capability that is defined by the bridge of the service.
+In the case of the `moduleFunction` property, it will invoke a function that is defined in the module that the process-page or process include (with `scriptUri`). 
+
+TODO!!!! Bridge supportModule?? for OpenAPI bridges?!?!
+
 
 ### Required activities
 
@@ -171,7 +171,7 @@ description defines where the values of the parameters are coming from. The foll
 It is also possible to refer to a module-function that is executed before the activity is executed.
 The preprocess activity takes the same parameters as the actual activity in form of a json-object (keys are parameter
 names) and can return json objects, where every key overwrites the parameter passed to the actual activity.
-Preprocess can also throw Errors, with the `cause` `cancel`, in order to cancel the activity execution.
+Preprocess can also throw Errors, with the `cause`: `cancel`, in order to cancel the activity execution.
 
 ### Handling activity results
 
@@ -210,7 +210,7 @@ is executed.
 
 ### Bridge
 
-Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridges:
+Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridge executions:
 
 - OpenAPI: The bridge is defined by an OpenAPI specification. The activities are executed by calling the endpoints of
   the OpenAPI specification. Learn more about OpenAPI at [openapi.org](https://www.openapis.org/)
