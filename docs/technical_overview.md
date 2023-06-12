@@ -1,7 +1,8 @@
 # Technical overview
 
 The IDS toolkit is a simple javascript module that can be integrated into any website.
-When the module is loaded on a webpage, a process-page can be initiated by calling the global `_ids_init_` function,
+When the module is loaded on a webpage, a process-page can be initiated by calling the global `__init_toolkit__`
+function,
 with the url of the process-page description file as argument.
 
 The Process-Page is a json file that describes the process-page. It links (or includes) the process, which describe the
@@ -41,9 +42,12 @@ The javascript can be integrated like this:
 While developing new processes it is recommended to start generating the page and then switch to map-mode, when all
 activities and interactions with the services are set.
 
-While writing the instances of the individual components it might be useful to use a json-schema validator, to constantly check the validity of the json files.
-There are 4 json-schema files. One for the process-page, one for the process and one for the bridge and one that combines all of them, which is a extended json-schema for a process-page (which can integrate the other instances).
-The json-schema files can be found here in the [toolkit repository](https://github.com/RIDAGOP-Toolkit/ridagop-toolkit/tree/main/schemas).
+While writing the instances of the individual components it might be useful to use a json-schema validator, to
+constantly check the validity of the json files.
+There are 4 json-schema files. One for the process-page, one for the process and one for the bridge and one that
+combines all of them, which is a extended json-schema for a process-page (which can integrate the other instances).
+The json-schema files can be found here in
+the [toolkit repository](https://github.com/RIDAGOP-Toolkit/ridagop-toolkit/tree/main/schemas).
 A documentation for the individual components [can be found here](/schemas).
 
 The toolkit has a robust validation system integrated, next to the json-schema validation raising errors about missing
@@ -51,9 +55,8 @@ or wrong defined components.
 
 ## Overview
 
-
 <figure markdown>
-  ![Overview](/assets/full-overview.png){ width="700" }
+  ![Overview](assets/full-overview.png){ width="700" }
 </figure>
 
 Following components of a complete process can be separated into different json files:
@@ -69,9 +72,9 @@ However, it also possible to combine all components into one file (except the Op
 
 In addition, there can be separate javascript modules, that be referenced by specific components:
 
-- Process-Page module
-- Process module
-- Bridge module
+- Process-Page module  (`scriptUri`)
+- Process module  (`scriptUri`)
+- Bridge module (`supportModuleUri`)
 
 These modules can be used to define custom functions, that can be used for activities which modify some data before or
 after interacting with a service.
@@ -94,13 +97,12 @@ A service, which has a bridge defines a set of activities and ui-elements that c
 Next to the services the process can also define a `common` object, activities and ui-elements.
 This is particular useful, when activities, need to call other activities from other services (in subActivities).
 
-
-Read here full details of the [process schema](schemas/process).
+Read here full details of the [process schema](/schemas/process).
 
 ### Services
 
 Services are defined within a process and represent the interactions with external services that is used in the process.
-However the main part of a services, 
+However the main part of a services,
 Most importantly the process-page definition of a service can ([full schema](/schemas/process-page#pp-service)):
 
 - define a new bridge
@@ -128,7 +130,7 @@ activities:
 - Checkboxes: To select from a boolean option
 - File-inputs: To load files that can be used as input for activities
 
-See the [UI-Elements section](/ui.md) for more details.
+See the [UI-Elements section](/ui) for more details.
 
 ## Activities
 
@@ -139,11 +141,12 @@ execution, which is defined in the bridge of the service.
 
 Every activity needs to specify what execution of the bridge is should invoke. This is done by specifying
 the `bridgeCapability` or the `moduleFunction` property.
-In the case of the `bridgeCapability` property, it will invoke a capability that is defined by the bridge of the service.
-In the case of the `moduleFunction` property, it will invoke a function that is defined in the module that the process-page or process include (with `scriptUri`). 
+In the case of the `bridgeCapability` property, it will invoke a capability that is defined by the bridge of the
+service.
+In the case of the `moduleFunction` property, it will invoke a function that is defined in the module that the
+process-page or process include (with `scriptUri`).
 
 TODO!!!! Bridge supportModule?? for OpenAPI bridges?!?!
-
 
 ### Required activities
 
@@ -210,11 +213,103 @@ is executed.
 
 ### Bridge
 
-Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridge executions:
+Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridge
+executions:
 
 - OpenAPI: The bridge is defined by an OpenAPI specification. The activities are executed by calling the endpoints of
   the OpenAPI specification. Learn more about OpenAPI at [openapi.org](https://www.openapis.org/)
 - Client-Module: The bridge is defined by a javascript module, which defines functions that can be called by the
-  activities. 
+  activities.
 
+### Globally calling activities and accessing store variables
 
+In some cases it might be necessary to call activities or read store variables in arbitrary javascript code
+(for example added process js modules). There are several functions defined on the global toolkit object that can be
+used for that.
+
+```js
+// the toolkit is attached to the window object so it can be retrieved like that:
+let toolkit = getToolkit()
+```
+
+#### Executing activities
+
+Execute an activity of a service
+
+The function has the following signature:
+
+`async executeActivity(serviceName: string, activityName: string, params: { [paramName: string]: any } = {}, body?: any)`
+
+with the parameters:
+
+* serviceName: The name of the service
+* activityName: The name of the activity
+* params: additional parameters, overwriting the default parameters the activity would use.
+* body: the body (for POST requests of OpenAPI bridges)
+
+The activity is using the parameters as defined in the service as normal, but an object of parameters can be passed,
+which will overwrite the parameters of the activity.
+
+#### Retrieving stored data
+
+Get a storage value from the process (when no service name is given) or from a service
+
+The function has the following signature:
+
+`getStorageValue(key: string, serviceName?: string)`
+
+with the parameters:
+
+* key: key of the stored value
+* serviceName: name of the service (optional)
+
+#### Get parameter values
+
+Get a parameter value from a service
+
+The function has the following signature:
+
+`async getParameterValue(serviceName: string, uiElemName: string)`
+
+with the parameters:
+
+* serviceName: name of the service
+* uiElemName: name of the ui element
+
+### Deployment
+
+The structure of the filesystem on the server is left to the developer.
+Generally instances like the process-page, process and bridges can be referenced with relative urls.
+A `local_prefix_path` can be included in the root of the process-page description that is used for all instances and
+modules, when they have relative paths.
+Beware that the toolkit-schema (`schemaUri` on the process-page root) must have an absolute url. Also modules, should
+generally have absolute urls, because of the way webpack requires module paths to be.
+
+An example structure could be as following:
+
+```
+  root-path
+  ├── index.html  (an overview of all processes)
+  ├── data
+  │   ├── instances
+  │   │   ├── process-page
+  │   │   │   └── lc_hub_no_ui.json (the process-page description)
+  │   │   ├── bridge
+  │   │   │   └── dataverse_bridge.json (the bridge description)
+  │   │   └── process
+  │   │       └── ...
+  │   ├── openapi
+  │   │   ├── dataverse_openapi.json (the openapi specification)
+  │   │   └── localcontexts_openapi.json (the openapi specification)
+  │   ├── schemas
+  │   │   └── ridagop-ids-toolkit.schema.json (the toolkit schema)
+  │   └── scripts
+  │       └── lc_hub.js (the process-page module script)
+  ├── pages
+  │   └── lc_hub_labels
+  │       ├── assets
+  │       │   .... (images, css)
+  │       └── index.html (the process page)
+  └── toolkit 
+      └── index.js (the toolkit module)
+```

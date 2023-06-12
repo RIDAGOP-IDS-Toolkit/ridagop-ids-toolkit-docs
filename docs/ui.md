@@ -22,19 +22,20 @@ For each service it will create the following sections:
 
 These are the available UI elements:
 
-    - Input fields (inputFields)
-    - Buttons (buttons)
-    - Checkboxes (checkboxes)
-    - Select boxes (selects)
-    - File inputs (fileInputs)
+    - Input fields
+    - Buttons
+    - Checkboxes
+    - Select boxes
+    - File inputs
 
 More detailed information about the UI elements can be found in
 the [schema documentation](/schemas/process#p-serviceui).
 
 ## Map mode
 
-The ids of the UI elements must follow the given pattern: "input_<service-name>_<inputname>". So for example for the
-following intput field `project_id` in the process instance the `id` must be `input_lc_hub_project_id`.
+The ids of the UI elements must follow the given pattern: `<input-type>_<service-name>_<inputname>`. So for example for
+the following __intput field__ `project_id` in the local contexts hub
+service (named `lc_hub` in the process) the `id` must be `input_lc_hub_project_id`.
 
 ``` json
 {
@@ -57,3 +58,11 @@ following intput field `project_id` in the process instance the `id` must be `in
    }
 }
 ```
+
+The input types are following:
+
+- Input fields: `input`
+- Buttons: `button`
+- Checkboxes: `checkbox`
+- Select boxes: `select`
+- File inputs: `fileinput`

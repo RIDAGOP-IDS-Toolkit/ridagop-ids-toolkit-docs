@@ -22,9 +22,13 @@ already existing catalog and collections management systems.
 
 ### Structure of the Process
 
+!!! note
+    The process files can be found
+    here: [Local Contexts Hub Labels - Dataverse (Github process library)](https://github.com/RIDAGOP-Toolkit/process-library/tree/main/local_contexts_hub_labels_dataverse).
+    Note, that the files in the process library can be updated, so the files in this documentation might not be up to date.
+
 The Local Contexts Hub Labels Process is available as a generated user interface version and with a html page, which
-includes
-UI elements for that process.
+includes UI elements for that process.
 
 The specific instance files that are used for the process are:
 
@@ -310,31 +314,25 @@ The Dataverse service has 2 activities:
 }
 ```
 
-#### Activities properties:
+#### Activities:
 
 - bridgeCapability, moduleFunction:
-As explained before, each activity needs either a `bridgeCapability` or a `moduleFunction` property, specifying what bridge capability or process function should be invoked.
+  As explained before, each activity needs either a `bridgeCapability` or a `moduleFunction` property, specifying what
+  bridge capability or process function should be invoked.
 
-For the Local Contexts service we use the bridge capability: read_dataset_metadata and the module function: display_project_labels.
+For the Local Contexts service we use the bridge capability: `read_dataset_metadata` and the module
+function: `display_project_labels`.
 
-For the Dataverse service we use the bridge capabilities: read_dataset_metadata, update_dataset_metadata and publish_dataset and the module functions: findLCHubProjectReference, createLCHubReference, updateDatasetMetadata and display_updated_description.
+For the Dataverse service we use the bridge capabilities: `read_dataset_metadata`, `update_dataset_metadata`
+and `publish_dataset` and the module
+functions: `findLCHubProjectReference`, `createLCHubReference`, `updateDatasetMetadata`
+and `display_updated_description`.
 
-- proProecess: A module function that should be called before calling the actual execution. This can modify the parameters or cancel the activity execution.
+- proProecess: A module function that should be called before calling the actual execution. This can modify the
+  parameters or cancel the activity execution.
 
-For the Dataverse sub-activity _publishUpdatedDataset_ of the activity _postDatasetMetadata_ uses the preProcess function shouldPublish, which will check if the dataset, was a draft before modifying it. If it was a draft, it will not publish the dataset.
-
-- parameters
-
-- storeResult
-
-- subActivities
-
-- ui/resultAsOutputHtml
-
-- requiredActivities
-
-- priority
-
-- requestBody
+For the Dataverse sub-activity `publishUpdatedDataset` of the activity `postDatasetMetadata` uses the preProcess
+function `shouldPublish`, which will check if the dataset, was a draft before modifying it. If it was a draft, it will
+not publish the dataset.
 
 ## Data Access Request

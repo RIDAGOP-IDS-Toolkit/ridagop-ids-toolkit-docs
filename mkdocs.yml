@@ -26,9 +26,12 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: "#"
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 plugins:
   - exclude:
       glob:
         - "*.md~"
-repo_url: https://github.com/RIDAGOP-IDS-Toolkit
+repo_url: https://github.com/RIDAGOP-Toolkit
 repo_name: GitHub
