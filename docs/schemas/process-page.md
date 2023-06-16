@@ -16,7 +16,6 @@
 - **`scriptUri`** *(string/format: uri-reference)*: Absolute or relative url to the process-page module. this module will be merged with the process module. Activities can use the module function when they specify a 'moduleFunction' instead of 'bridgeCapability'.
 - **`common`** *(object)*: Settings for the common part. Common activities can reference to all services.
     - **`ui`**: Settings of the common UI part. Refer to *[PP-UISettings](#pp-uisettings)*.
-- **`schemaUri`** *(string)* **(required)** : The uri to the RIDAGOP schema to be used. The uri of this file.
 - **`local_prefix_path`** *(string)*: Prefix path for all files specified with relative path.
 ## Definitions
 
