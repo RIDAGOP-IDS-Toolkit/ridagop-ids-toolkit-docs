@@ -89,6 +89,15 @@ Either the page can be completely generated, meaning all input html elements wil
 in map-mode, where the defined interaction elements will be mapped to existing html on the page.
 Read more about the 2 view modes on the [User interface page](/ui).
 
+## Process-Page
+
+One critical property of the process-page is the `local_prefix_path`. It sets a prefix for all instances (json
+descriptions of process, bridges, openapi files) and scripts (client module, support modules).
+
+In case an instance url specifies a relative path instead of an absolute url, this prefix will be used to resolve the
+path. Note that if the prefix_path starts with a `/` it will be resolved relative to the domain of the page, otherwise
+it will be resolved relative to the path of the process-page.
+
 ## Process
 
 A process defines a set of __services__, which describe how the user can interact with external services.
@@ -168,6 +177,15 @@ description defines where the values of the parameters are coming from. The foll
 - Store
 - Generate
 - Dynamic
+
+#### Parent
+
+... TODO
+
+#### Store
+
+... TODO
+Note that, the key, can be a lodash object-path, meaning that you can access nested values (e.g. `metadata.project_id`).
 
 ### Preprocess execution
 

@@ -23,9 +23,9 @@ already existing catalog and collections management systems.
 ### Structure of the Process
 
 !!! note
-    The process files can be found
-    here: [Local Contexts Hub Labels - Dataverse (Github process library)](https://github.com/RIDAGOP-Toolkit/process-library/tree/main/local_contexts_hub_labels_dataverse).
-    Note, that the files in the process library can be updated, so the files in this documentation might not be up to date.
+The process files can be found
+here: [Local Contexts Hub Labels - Dataverse (Github process library)](https://github.com/RIDAGOP-Toolkit/process-library/tree/main/local_contexts_hub_labels_dataverse).
+Note, that the files in the process library can be updated, so the files in this documentation might not be up to date.
 
 The Local Contexts Hub Labels Process is available as a generated user interface version and with a html page, which
 includes UI elements for that process.
@@ -336,3 +336,54 @@ function `shouldPublish`, which will check if the dataset, was a draft before mo
 not publish the dataset.
 
 ## Data Access Request
+
+The 2nd example process is for data access application.
+In fact it consists of 2 separate processes, one for __data usage applications__ and another for __data usage
+applications__.
+Even tho some types of data repositories provide some kind of restricted data access features, this might not always be
+the case.
+This process again works with dataverse, which allows restricting files, and making requests to access those files.
+However, these need the applicant to have an account on the dataverse instance,
+which because of the distributed nature of dataverse does not provide a convenient pathway for data sharing.
+In addition, it required the data managers, to constantly monitor activities on the dataverse instance in order to
+manage data requests.
+Instead, the process we implement depend on 2 simple components: A singlefile php application,
+which allows to store and access data usage application and email for making the request communication.
+Therefor the data-managers do not need to register nor enter the dataverse instance.
+
+While the process can do the, it is more for demonstration purposes of the toolkit,
+and would need to be extended to meet the requirements of specific use cases.
+The two processes make use of the toolkit feature to create the user interface for the process. The generation of
+user interfaces is intended for rapid testing and prototyping of processes.
+
+These are the instance files that are involved in the data usage application process.
+Compared to the LC Hub Labels example, this process is separated in a more granular way.
+This is in order to demonstrate how, how the process-page can be separated from the process.
+Having the components more separated, makes it easier to test replacing individual parts (e.g. in order to use another
+form of communication then email).
+
+```
+process-page:
+data_request.json
+    process: data_request_process.json
+    
+process:
+data_request_process.json
+    services.data_request.bridge: dataverse_bridge_openapi.json
+    script: data_request.js
+
+bridges:
+datastorage_bridge_openapi.json 
+    openapiSchemaUri: openapi datastorage_openapi.json
+    supportModuleUri: datastore.js
+```
+
+In the process page we specify the bridge that should be used for storing data request information (service: '
+request_storage').
+The information come from fields that the applicant has to fill out. It includes The dataverse dataset persistent id (
+e.g. doi:...) a motivation text, which describes for what purpose the data will be used and the email address of the
+applicant. As explained above, we are using a single file php application for storing the data request information and
+set the bridge here, which is the description of an OpenAPI based bridge, with operations for reading, writing and
+deleting data.
+
+The process defines one activity for that service, which is called 'store'. 
