@@ -387,3 +387,6 @@ set the bridge here, which is the description of an OpenAPI based bridge, with o
 deleting data.
 
 The process defines one activity for that service, which is called 'store'. 
+
+TODO Query Parmas and do this:
+http://localhost:8080/?process=data_request&receiver=cool.com&datasetId=dasjdkald
