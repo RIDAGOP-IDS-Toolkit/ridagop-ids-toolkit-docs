@@ -188,7 +188,9 @@ The parameter `.field` (string) should be set to the name of the ui element.
 - CheckBox
 - SelectInput
 
-TODO QUERY PARAM
+In addition, parameters of type `inputFields` can have the property `fromQueryParam` (string), which turns this
+inputfield into a readonly field, where the value
+is already set by the url query parameter of the given name.
 
 #### Parent
 
@@ -275,10 +277,21 @@ or `moduleFunction` and eventual `parameters` properties, which will be executed
 
 ### Dynamic parameter
 
-And additional property of parameter definitions is `dynamic`. This postpones the validation if the userfield elements
+And additional property of parameter definitions is `dynamic` (`true`). This postpones the validation if the user input
+field elements
 exists to the moment when the activity is executed. This is required, when the process specifies dynamic UIElements.
 
-TODO example
+The following example defines a parameter that reads the value of a dynamic inputfield called `nonENLabels`
+
+```json
+{
+  "includeNonEnglishLabels": {
+    "field": "nonENLabels",
+    "dynamic": true
+  }
+}
+
+```
 
 ### Preprocess execution
 

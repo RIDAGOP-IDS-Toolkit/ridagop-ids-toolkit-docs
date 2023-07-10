@@ -30,7 +30,6 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
 plugins:
-  - snippets
   - exclude:
       glob:
         - "*.md~"

@@ -209,6 +209,6 @@
     - **`key`** *(string)* **(required)** : key in the store ( dots are not allowed).
 ## P-StoreAccess
 - **`P-StoreAccess`** *(object)*: Description for accessing a stored value.
-    - **`context`** *(string)*: From which context to access the variable. See [P-Store](#p-store). Must be one of: `['service', 'process', 'activity']`. Default: `service`.
-    - **`key`** *(string)* **(required)** : key in the store.
+    - **`context`** *(string)*: From which context to access the variable. See [P-Store](#p-store). Must be one of: `['service', 'process', 'activity']`.
+    - **`key`** *(string)* **(required)** : key in the store. This can also be '.' separated in order to get nested properties. It is using the lodash get function : https://docs-lodash.com/v4/get/.
     - **`default`**: default value if the key is not found.
