@@ -30,8 +30,10 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
 plugins:
+  - snippets
   - exclude:
       glob:
         - "*.md~"
+        - snippets/*
 repo_url: https://github.com/RIDAGOP-Toolkit
 repo_name: GitHub

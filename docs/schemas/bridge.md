@@ -14,7 +14,7 @@
         - **`operation`**: Specifies an OpenAPI operation that should be executed. Refer to *[B-Operation](#b-operation)*.
         - **`functionName`** *(string)*: Specifies the name of the function (in case of a client library).
 - **`errorMessagePath`** *(string)*: Relative json-path in the response, where an error-message is located, if the response is not a 2XX answer.
-- **`supportModuleUri`** *(string/format: uri)*: The URI of the module that contains the support functions.
+- **`supportModuleUri`** *(string/format: uri-reference)*: The URI of the module that contains the support functions.
 ## Definitions
 
 ## B-Operation

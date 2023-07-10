@@ -3,10 +3,11 @@
 ## Properties
 
 - **`title`** *(string)*: The title of the process page.
+- **`description`** *(string)*: The description of the process page.
 - **`process`** *(object)* **(required)** : The process to be used. Either the full instance or a uri to the process description.
     - **`comment`** *(string)*: A comment for other developers.
     - **`One of (1)`** *(object)*
-        - **`uri`** *(string/format: uri)* **(required)** : The uri to the process description.
+        - **`uri`** *(string/format: uri-reference)* **(required)** : The uri to the process description.
     - **`One of (2)`** *(object)*
         - **`instance`** **(required)** : The full process instance, which needs to be a valid Process. Refer to *[process](/Schema/process)*.
 - **`services`** *(object)*: Process-page description for the services to be used in the process. The services here must match the services in the process.
@@ -15,7 +16,11 @@
     - **`type`** *(string)*: The type of the view ('build' or 'map'). Must be one of: `['build', 'map']`.
 - **`scriptUri`** *(string/format: uri-reference)*: Absolute or relative url to the process-page module. this module will be merged with the process module. Activities can use the module function when they specify a 'moduleFunction' instead of 'bridgeCapability'.
 - **`common`** *(object)*: Settings for the common part. Common activities can reference to all services.
+    - **`description`** *(string)*: The description of the common part.
     - **`ui`**: Settings of the common UI part. Refer to *[PP-UISettings](#pp-uisettings)*.
+    - **`parameters`** *(object)*: Parameters that are available to all activities of common.
+        - **Additional Properties**: Refer to *[process#P-Parameter](/Schema/process#p-parameter)*.
+    - **`autostart`**: List of activities (names/keys in the the activities objects) that should be started automatically on startup (either a string or a list of strings).
 - **`local_prefix_path`** *(string)*: Prefix path for all files specified with relative path.
 ## Definitions
 

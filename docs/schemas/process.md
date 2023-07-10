@@ -6,10 +6,12 @@
 
 - **`name`** *(string)* **(required)** : The name of the process. This is the name for internal identification (although there is only one process).
 - **`title`** *(string)*: The title of the process.
-- **`description`** *(string)*: A description of the process. (For other developers).
+- **`description`** *(string)*: A description of the process.
+- **`comment`** *(string)*: A comment for the process. (For other developers).
 - **`services`** *(object)* **(required)** : Services with their UI-elements and activities.
     - **Additional Properties**: Each key specifies the name of a service. Refer to *[P-Service](#p-service)*.
-- **`common`** *(object)*: Common activities and ui elements (access to activities of other services). Default: `{'ui': {}, 'activities': {}}`.
+- **`common`** *(object)*: Common activities and ui elements (access to activities of other services).
+    - **`description`** *(string)*: The description for the common part.
     - **`ui`** *(object)*: UI-elements that are available for the activities defined in the common section. Default: `{}`.
         - **`buttons`** *(object)*: UI-Buttons. These buttons can trigger activities of all services of this process.
             - **Additional Properties** *(object)*: key is the name of the button.
@@ -17,6 +19,8 @@
                 - **`triggerActivity`** *(string)* **(required)** : The name of the activity that is triggered. The activity must be of the same service.
                 - **`activityService`** *(string)*: The name of the service that contains the activity that is triggered.
                 - **`triggerSequence`** *(string)*: The name of the sequence that is triggered. The sequence must be of the same service.
+    - **`parameters`** *(object)*: Parameters that are usable by all activities of this service.
+        - **Additional Properties**: Refer to *[P-Parameter](#p-parameter)*.
     - **`activities`** *(object)*: Some activities. Consider that the bridge does not have a bridge, so these activities can only have module-functions.
         - **Additional Properties** *(object)*: Each key specifies the name of an activity.
             - **`One of (1)`**: Refer to *[P-Activity](#p-activity)*.
@@ -26,12 +30,14 @@
             - **`title`** *(string)*: The user visible title of the sequence.
             - **`activities`** *(array)*: The list of activities that are executed when the sequence is triggered.
                 - **Items** *(string)*: The name of an activity.
+    - **`autostart`**: Activities that are started on page load.
 - **`scriptUri`** *(string/format: uri-reference)*: The URI of the script that is used to run the process.
 ## Definitions
 
 ## P-Service
 - **`P-Service`** *(object)*: A service as it is defined in the Process. Includes UI-elements, activities and shared parameters and the bridge.
     - **`title`** *(string)*: The user visible title of the service.
+    - **`description`** *(string)*: The description of the process page.
     - **`ui`**: The UI-elements of the service. Refer to *[P-ServiceUI](#p-serviceui)*. Default: `{}`.
     - **`parameters`** *(object)*: Parameters that are usable by all activities of this service.
         - **Additional Properties**: Refer to *[P-Parameter](#p-parameter)*.
@@ -68,7 +74,7 @@
         - **`resultAsOutputHtml`**: If the result of the activity should be shown on the page. For generated UI, there is a output section for each service. For mapped UI, a string can be used in order to specify the html element (element id).
             - **`One of (1)`** *(boolean)*
             - **`One of (2)`** *(string)*
-        - **`resultAsDynamicUI`** *(boolean)*: The result of this activity is used to generate some new UI-elements. The result data needs to validate against the process-Service UI schema.
+        - **`resultAsDynamicUI`** *(string)*: The result of this activity is used to generate some new UI-elements. The result data needs to validate against the process-Service UI schema. The string represents the postfix. use empty string for the default position (after the UI) or 'pre' to put it before the UI.
         - **`alert`** *(boolean)*: Configure if the activity should show an alert when it is finished (default on top level activities is true).
     - **`debug`** *(object)*: Some debug related settings for the activity.
         - **`execute`** *(boolean)*: If false, the activity is not executed (default true).
@@ -174,6 +180,7 @@
             - **Additional Properties**: A parameter-name defined by the bridgeCapability or moduleFunction defined for this 'generate' parameters. Refer to *[P-Parameter](#p-parameter)*.
     - **`dynamic`** *(boolean)*: if true, the parameter is not passed to the activity, but is used to generate a dynamic UI.
     - **`comment`** *(string)*: A comment for other developers.
+    - **`fromQueryParam`** *(string)*: Overwrite const with queryParam of this name (works for text inputs and constant) parameters.
 ## P-ServiceBridge
 - **`P-ServiceBridge`** *(object)*: The bridge for this service.
     - **`One of (1)`**
@@ -204,3 +211,4 @@
 - **`P-StoreAccess`** *(object)*: Description for accessing a stored value.
     - **`context`** *(string)*: From which context to access the variable. See [P-Store](#p-store). Must be one of: `['service', 'process', 'activity']`. Default: `service`.
     - **`key`** *(string)* **(required)** : key in the store.
+    - **`default`**: default value if the key is not found.

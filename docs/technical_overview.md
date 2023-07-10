@@ -59,7 +59,7 @@ or wrong defined components.
   ![Overview](assets/full-overview.png){ width="700" }
 </figure>
 
-Following components of a complete process can be separated into different json files:
+Following components of a complete process can be separated into different json files (instances):
 
 - Process-Page
 - Process
@@ -70,7 +70,7 @@ Following components of a complete process can be separated into different json 
 
 However, it also possible to combine all components into one file (except the OpenAPI spec and the client-module).
 
-In addition, there can be separate javascript modules, that be referenced by specific components:
+In addition, there can be separate javascript modules, that be referenced by specific optional components:
 
 - Process-Page module  (`scriptUri`)
 - Process module  (`scriptUri`)
@@ -98,11 +98,14 @@ In case an instance url specifies a relative path instead of an absolute url, th
 path. Note that if the prefix_path starts with a `/` it will be resolved relative to the domain of the page, otherwise
 it will be resolved relative to the path of the process-page.
 
+Read here full details of the [process schema](/schemas/process-page).
+
 ## Process
 
 A process defines a set of __services__, which describe how the user can interact with external services.
 
-A service, which has a bridge defines a set of activities and ui-elements that can be used to interact with the service.
+A service, which has a bridge defines a set of __activities__ and ui-elements that can be used to interact with the
+service.
 Next to the services the process can also define a `common` object, activities and ui-elements.
 This is particular useful, when activities, need to call other activities from other services (in subActivities).
 
@@ -115,7 +118,7 @@ However the main part of a services,
 Most importantly the process-page definition of a service can ([full schema](/schemas/process-page#pp-service)):
 
 - define a new bridge
-- define new autostart activities (<- ??? REF)
+- define new autostart activities
 - specify to show/hide sections of the UI
 - Define additional service-wide parameters
 - define additional text-fields and buttons (that can trigger activities)
@@ -153,9 +156,7 @@ the `bridgeCapability` or the `moduleFunction` property.
 In the case of the `bridgeCapability` property, it will invoke a capability that is defined by the bridge of the
 service.
 In the case of the `moduleFunction` property, it will invoke a function that is defined in the module that the
-process-page or process include (with `scriptUri`).
-
-TODO!!!! Bridge supportModule?? for OpenAPI bridges?!?!
+process-page or process include (with `scriptUri`) or the supportModule of the bridge.
 
 ### Required activities
 
@@ -168,24 +169,116 @@ required activities).
 Activities generally require some parameters, which are the parameters of the execution of the activity. The parameter
 description defines where the values of the parameters are coming from. The following parameter sources are possible:
 
+- Field
 - Parent
 - Previous
-- Field
-- QueryParam
 - Constant
-- FileInput
 - Store
+- QueryParam
+- FileInput
 - Generate
 - Dynamic
 
+##### Field
+
+Takes the input of an UI field (not UI File-input), which can be
+The parameter `.field` (string) should be set to the name of the ui element.
+
+- InputField
+- CheckBox
+- SelectInput
+
+TODO QUERY PARAM
+
 #### Parent
 
-... TODO
+Parent parameters `.parent`  (`true`) works inside `subActivities` and take the result of the parent activity. This is a
+boolean
+parameter, which just needs to be set to `true` to indicate that the parent result is used for this parameter.
+The example at the bottom of the page shows
+
+```json
+   {
+  "read_lc_hub_data": {
+    "title": "Fetch project data",
+    "bridgeCapability": "read_dataset_metadata",
+    "preProcess": "checkProjectID",
+    "parameters": {
+      "project_id": {
+        "field": "project_id"
+      }
+    },
+    "subActivities": {
+      "displayLabels": {
+        "title": "Display project labels",
+        "moduleFunction": "display_project_labels",
+        "parameters": {
+          "lc_hub_project_data": {
+            "parent": true
+          }
+        },
+        "ui": {
+          "resultAsOutputHtml": true
+        }
+      }
+    },
+    "comment": "input_field can be omitted if there is an input_actions set"
+  }
+}
+```
+
+#### Previous
+
+Previous (`.previous`) (`true`) is similar to Parent, but it uses the results of the activity in the chain of
+subActivites.
+This parameter simply needs to be set to `true`.
+
+#### Constant
+
+`.constant` (string) specifies a constant value, does not change.
+Since parameters for all activities can also be defined on a global level (on the process-page or process).
+It is useful for values, which should change in use cases (e.g. changing a fixed data repo url).
+The value `.fromQueryParam` can also be set, which would (if given) overwrite the constant value, with the value set in
+the query parameter of the given name.
+In the given example we define a parameter `project_id` which has a constant value. However, if the page was called
+with the query-parameter `pid` it will use that value in the query-parameter instead.
+
+```json
+{
+  "project_id": {
+    "constant": "2198e4f7-b161-ac8c-2554-4b153d7ebce8",
+    "fromQueryParam": "pid"
+  }
+}
+```
 
 #### Store
 
-... TODO
-Note that, the key, can be a lodash object-path, meaning that you can access nested values (e.g. `metadata.project_id`).
+Retrieve data that was previously stored. See [Storing results section](#storing-results).
+
+Note that, the key, can a path, which can be retrieved with [lodash get](https://docs-lodash.com/v4/get/), meaning that
+you can access nested values (e.g. `metadata.project_id`). The context is option and by default 'service'.
+
+#### QueryParam
+
+`.queryParam` (string) reads the parameter value from the url query parameter of the given name
+
+#### FileInput
+
+`fileInput` (string) reads the data from a file-input user element. This is generally used to fill the body of
+a post request with data, that the user might have stored on their computer.
+
+#### Generate
+
+`.generate` (object) works similar to an activity itself. The object should include a `bridgeCapability`
+or `moduleFunction` and eventual `parameters` properties, which will be executed everytime the parameter is required.
+
+### Dynamic parameter
+
+And additional property of parameter definitions is `dynamic`. This postpones the validation if the userfield elements
+exists to the moment when the activity is executed. This is required, when the process specifies dynamic UIElements.
+
+TODO example
 
 ### Preprocess execution
 
@@ -331,3 +424,24 @@ An example structure could be as following:
   └── toolkit 
       └── index.js (the toolkit module)
 ```
+
+### Simple example
+
+Consider the following 3 files which contain the process for reading and displaying Local Contexts Labels.
+It uses one services, which has an OpenAPI bridge and one additional process module.
+The structure is as compact as possible, defining the process directly inside the process-page and the bridge
+of the lc_hub service also inside the service description.
+
+<a href="/examples/lc_hub_labels.json" target="_blank">__Process page__</a>
+
+<a href="/examples/lc_hub_labels/localcontextshub_openapi.json" target="_blank">__The OpenAPI bridge execution__</a>
+
+<a href="/examples/lc_hub_labels/lc_hub_labels.js" target="_blank">__Process module__</a>
+
+Instead of having the process inside the process-page, we could also have it in a separate instance
+
+<a href="/examples/lc_hub_labels2.json" target="_blank">__Process page (2)__</a>
+
+<a href="/examples/lc_hub_labels/lc_hub_labels_process.json" target="_blank">__Process__</a>
+
+
