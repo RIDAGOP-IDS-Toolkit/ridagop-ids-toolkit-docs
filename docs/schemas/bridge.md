@@ -10,18 +10,27 @@
     - **`One of (2)`** *(object)*: Client library module.
         - **`apiClientModuleUri`** *(string/format: uri-reference)* **(required)** : The URI of the module that contains the client library.
 - **`capabilities`** *(object)* **(required)** : Defines the capabilities of the bridge.
-    - **Additional Properties** *(object)*: Each name defines a capability. The allowed names are defined in the capabilities_names_list.json file.
-        - **`operation`**: Specifies an OpenAPI operation that should be executed. Refer to *[B-Operation](#b-operation)*.
-        - **`functionName`** *(string)*: Specifies the name of the function (in case of a client library).
+    - **`Any of (1)`**
+        - **Additional Properties**: Refer to *[Capability](#capability)*.
+    - **`Any of (2)`**
+        - **`^_.*$`**: Refer to *[Capability](#capability)*.
 - **`errorMessagePath`** *(string)*: Relative json-path in the response, where an error-message is located, if the response is not a 2XX answer.
 - **`supportModuleUri`** *(string/format: uri-reference)*: The URI of the module that contains the support functions.
 ## Definitions
 
+## Capability
+- **`Capability`** *(object)*: Each name defines a capability. The allowed names are defined in the capabilities_names_list.json file.
+    - **`Any of (1)`**
+        - **`operation`** **(required)** : Refer to *[B-Operation](#b-operation)*.
+    - **`Any of (2)`**
+        - **`functionName`** *(string)* **(required)** 
 ## B-Operation
 - **`B-Operation`** *(object)*: Specifies an OpenAPI operation that is executed.
-    - **`path`** *(string)*: The path of the OpenAPI operation.
-    - **`method`** *(string)*: The method of the OpenAPI operation. Must be one of: `['get', 'post', 'patch', 'put', 'delete']`.
-    - **`operationId`** *(string)*: The operationId of the OpenAPI operation.
+    - **`Any of (1)`**
+        - **`operationId`** *(string)* **(required)** : The operationId of the OpenAPI operation.
+    - **`Any of (2)`**
+        - **`path`** *(string)* **(required)** : The path of the OpenAPI operation.
+        - **`method`** *(string)* **(required)** : The method of the OpenAPI operation. Must be one of: `['get', 'post', 'patch', 'put', 'delete']`.
 
     Examples:
     ```json

@@ -118,18 +118,19 @@ However the main part of a services,
 Most importantly the process-page definition of a service can ([full schema](/schemas/process-page#pp-service)):
 
 - define a new bridge
-- define new autostart activities
+- define autostart activities
+- define service-wide parameters
 - specify to show/hide sections of the UI
-- Define additional service-wide parameters
-- define additional text-fields and buttons (that can trigger activities)
+
+<!--- TODO: define additional text-fields and buttons (that can trigger activities)? -->
 
 The process instance defines the crucial parts of a service, which are ([full schema](/schemas/process#p-service)):
 
-- The bridge
-- activities
-- autostart activities
-- sequences
-- service wide parameters
+- define a new bridge
+- _activities_
+- define autostart activities
+- define service-wide parameters
+- _sequences_ (of activities, that can be triggered by buttons)
 
 #### UI-Elements
 
@@ -142,7 +143,14 @@ activities:
 - Checkboxes: To select from a boolean option
 - File-inputs: To load files that can be used as input for activities
 
-See the [UI-Elements section](/ui) for more details.
+See the [UI-Elements section](/ui#ui-elements) for more details.
+
+## The common section
+
+Besides the services, there is another section to a process that can include activities and some ui. This common
+section, does not require a bridge, but define its own activities by executing
+functions in the modules of the process-page or process. However, activities (and/or subActivities) can also be
+references and buttons in the ui of this section can trigger activities of all of the services.
 
 ## Activities
 
@@ -157,6 +165,11 @@ In the case of the `bridgeCapability` property, it will invoke a capability that
 service.
 In the case of the `moduleFunction` property, it will invoke a function that is defined in the module that the
 process-page or process include (with `scriptUri`) or the supportModule of the bridge.
+
+### Autostarting activities
+
+Activities can be autostarted, meaning they will be triggered as soon as the process-page is loaded (and valid).
+The `autostart` property takes a single string or a list of strings of activity-names.
 
 ### Required activities
 
@@ -295,7 +308,8 @@ The following example defines a parameter that reads the value of a dynamic inpu
 
 ### Preprocess execution
 
-It is also possible to refer to a module-function that is executed before the activity is executed.
+It is also possible to refer to a module-function that is executed before the activity is executed (`preProcess`
+string).
 The preprocess activity takes the same parameters as the actual activity in form of a json-object (keys are parameter
 names) and can return json objects, where every key overwrites the parameter passed to the actual activity.
 Preprocess can also throw Errors, with the `cause`: `cancel`, in order to cancel the activity execution.
@@ -328,24 +342,99 @@ element, where the result should be displayed.
 
 The result of an activity can also be used to dynamically generate UI elements. The result of the activity should be a
 json-object that has the same structure of service uis (schema: [Process Service-UI](/schemas/process#p-serviceui))
-The Ui-elements are added the Html-Element with the id `{service.name}_dyn_ui`.
+The Ui-elements are added the Html-Element with the id `{service.name}_dyn_ui` (or `{service.name}_dyn_ui_pre`).
 
 ### Sub-activities
 
 An activity can also define sub-activities. These sub-activities are executed after the activity main (`parentActivity`)
 is executed.
 
-### Bridge
+## Bridge
 
-Each service requires a bridge, which defines how the activities are executed. There are two basic types of bridge
-executions:
+Each service requires a bridge, which defines how the activities are executed. There are two basic types of __bridge
+executions__:
 
 - OpenAPI: The bridge is defined by an OpenAPI specification. The activities are executed by calling the endpoints of
   the OpenAPI specification. Learn more about OpenAPI at [openapi.org](https://www.openapis.org/)
 - Client-Module: The bridge is defined by a javascript module, which defines functions that can be called by the
   activities.
 
-### Globally calling activities and accessing store variables
+The main part of the part consists of a mapping between capability names and parts of the execution (either operations
+in the OpenAPI specification or function names). The capability names should be from a defines set of names
+(`read_dataset_metadata`, `write_dataset_file`, ...)
+which can
+be [found here](https://github.com/RIDAGOP-Toolkit/ridagop-toolkit/blob/main/schemas/capabilities_list.schema.json)
+or arbitrary names that must begin with an underscore (e.g. `_filterData`). The idea of a defined set of names is to
+have semantic consistency among different data repository system bridges.
+
+Each service must have a service bridge definition (either in the process-page or in the process). The definition
+contains
+a `source` properties which in itself either contains a `source` property (containing the whole bridge description. or
+a `uri` property , which is the uri of the bridge instance. The bridge definition can also include `server` property,
+which can specify how the server uri of an OpenAPI bridge should be and how the authorization is made.
+A bridge definition contains following properties.
+
+Let's look at an example. This is how the bridge for dataverse is used in order to facilitate to read the metadata of a
+dataset, update the metadata on a dataset.
+In the service `data_repo` of the process we have this bridge property.
+
+```json
+{
+  "bridge": {
+    "source": {
+      "uri": "instances/bridge/dataverse_bridge_openapi.json"
+    },
+    "server": {
+      "field": "dataverseInstance"
+    },
+    "authorization": {
+      "ApiKeyAuth": {
+        "field": "apiKey"
+      }
+    }
+  }
+}
+```
+
+This property first of all specifies where the bridge can be found.
+It also specifies that the server url can be taken from the field `dataverseInstance` that is defined in
+the `inputFields` of the service ui; and that authorization is done with an ApiKeyAuth. For this part is required to
+understand the authorization schema of the openapi schema of the service and knowing how authorization is specified in
+OpenAPI might be useful ([see here](https://swagger.io/docs/specification/authentication/)).
+
+The file `dataverse_bridge_openapi.json` contains the following (we just kept the relevant capabilities for this
+example)
+
+```json
+{
+  "capabilities": {
+    "read_dataset_metadata": {
+      "operation": {
+        "path": "/api/datasets/:persistentId/",
+        "method": "get"
+      }
+    },
+    "update_dataset_metadata": {
+      "operation": {
+        "path": "/api/datasets/:persistentId/versions/{versionId}/",
+        "method": "put"
+      }
+    }
+  },
+  "execute": {
+    "openapiSchemaUri": "openapi/dataverse_openapi.json"
+  }
+}
+```
+
+Here we see how the capabilities named `read_dataset_metadata` and `update_dataset_metadata` are mapped to certain
+operations. Instead of having `path` and `method` it would also be possible to just use `operationId` which identifies a
+unique operationsId in the openAPI instance.
+
+Note that OpenAPI files cannot be integrated into the bridge itself, because they are not strictly json-schema Draft-7
+compliant.
+
+## Globally calling activities and accessing store variables
 
 In some cases it might be necessary to call activities or read store variables in arbitrary javascript code
 (for example added process js modules). There are several functions defined on the global toolkit object that can be
@@ -356,7 +445,7 @@ used for that.
 let toolkit = getToolkit()
 ```
 
-#### Executing activities
+### Executing activities
 
 Execute an activity of a service
 
@@ -374,31 +463,29 @@ with the parameters:
 The activity is using the parameters as defined in the service as normal, but an object of parameters can be passed,
 which will overwrite the parameters of the activity.
 
-#### Retrieving stored data
+### Retrieving stored data
 
 Get a storage value from the process (when no service name is given) or from a service
 
 The function has the following signature:
 
-`getStorageValue(key: string, serviceName?: string)`
+`getStorageValue(key: string, serviceName?: string): any`
 
 with the parameters:
 
 * key: key of the stored value
 * serviceName: name of the service (optional)
 
-#### Get parameter values
+Returning whatever is stored under that location.
 
-Get a parameter value from a service
+### Reading UI Values
 
-The function has the following signature:
+It is also possible to read ui element values with the function of the following signature:
 
-`async getParameterValue(serviceName: string, uiElemName: string)`
+`async getUIValues(type: "inputFields" | "checkBoxes" | "buttons" | "fileinputs" | "selects",
+serviceName: string = "process")  Promise<{[uiElemName: string] : any}>`
 
-with the parameters:
-
-* serviceName: name of the service
-* uiElemName: name of the ui element
+which will return an object with ui elements names as keys and their respective values.
 
 ### Deployment
 

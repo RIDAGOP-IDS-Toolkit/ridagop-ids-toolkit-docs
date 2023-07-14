@@ -1,4 +1,4 @@
-# View modes
+# User interface / View modes
 
 Process pages can be displayed in two different view modes `build` and `map`. The mode is set on the
 process-page: `view.mode` which is a string either `build` or `map`.If the value is not set, the toolkit will use
@@ -9,27 +9,40 @@ the `build` mode.
 In build mode, the process page will be completely generated, meaning all input html elements will be generated.
 
 It will create a section for each service in the process.
-For each service it will create the following sections:
+For each service it will create the following sections `services.<service-name>.ui` and `common.ui`:
 
-    - UI Elements section
+    - UI Elements section (`input` object)
       All UI elements like inputfields, buttons, ...
-    - Status section
+    - Status section  (`status` object)
       The status of the service, which lists all activities and their sub-activities.
-    - Output section
+    - Output section (`output` object)
      A Section which contains activities outputs if they contain some.
+
+All 3 sections can be hidden with the `display` set to `false` in the respective objects.
+Also, a whole service section can be hidden. In addition the `input` section can have additional attributes
+to create UI blocks, which remove the ui elements from their default position and structure them and to change the
+default value of input fields and hide them.
+
+Each service section will also contain 2 containers for dynamically added ui-elements, one (default) after the normal UI
+section and another before.
+
+More detailed information about the UI elements can be found in
+the [schema documentation](/schemas/process-page#pp-uisettings).
 
 ### UI Elements
 
-These are the available UI elements:
+These are the available UI elements for the services and the common section:
 
-    - Input fields
-    - Buttons
-    - Checkboxes
-    - Select boxes
-    - File inputs
+- Input fields: `inputFields` For text input
+- Buttons: `buttons`  can be used to trigger activities and sequences (given by their name). _Buttons in the common section
+  can trigger activities of all other services._
+- Selects: `selects` For selecting a value from a list
+- Checkboxes: `checkBoxes` To select from a boolean option
+- File-inputs: `fileInputs` To load files that can be used as input for activities
 
-More detailed information about the UI elements can be found in
-the [schema documentation](/schemas/process#p-serviceui).
+They are defined in the process instance in `services.<service-name>.ui`
+
+[More info on all properties: schema documentation](/schemas/process#p-serviceui).
 
 ## Map mode
 
@@ -61,7 +74,6 @@ service (named `lc_hub` in the process) the `id` must be `input_lc_hub_project_i
 
 The input types are following:
 
-- Input fields: `input`
 - Buttons: `button`
 - Checkboxes: `checkbox`
 - Select boxes: `select`

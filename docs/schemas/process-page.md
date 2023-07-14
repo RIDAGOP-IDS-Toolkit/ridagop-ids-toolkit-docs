@@ -21,6 +21,9 @@
     - **`parameters`** *(object)*: Parameters that are available to all activities of common.
         - **Additional Properties**: Refer to *[process#P-Parameter](/Schema/process#p-parameter)*.
     - **`autostart`**: List of activities (names/keys in the the activities objects) that should be started automatically on startup (either a string or a list of strings).
+        - **`One of (1)`** *(string)*
+        - **`One of (2)`** *(array)*
+            - **Items** *(string)*
 - **`local_prefix_path`** *(string)*: Prefix path for all files specified with relative path.
 ## Definitions
 
@@ -31,6 +34,9 @@
     - **`parameters`** *(object)*: Parameters that are available to all activities of the service.
         - **Additional Properties**: Refer to *[process#P-Parameter](/Schema/process#p-parameter)*.
     - **`autostart`**: List of activities (names/keys in the the activities objects) that should be started automatically on startup (either a string or a list of strings).
+        - **`One of (1)`** *(string)*
+        - **`One of (2)`** *(array)*
+            - **Items** *(string)*
     - **`bridge`**: The bridge definition for the service. Refer to *[process#P-BridgeDefinition](/Schema/process#p-bridgedefinition)*.
 ## PP-UISettings
 - **`PP-UISettings`** *(object)*: UI settings.

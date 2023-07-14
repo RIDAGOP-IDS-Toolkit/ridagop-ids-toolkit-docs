@@ -23,9 +23,11 @@ already existing catalog and collections management systems.
 ### Structure of the Process
 
 !!! note
-The process files can be found
-here: [Local Contexts Hub Labels - Dataverse (Github process library)](https://github.com/RIDAGOP-Toolkit/process-library/tree/main/local_contexts_hub_labels_dataverse).
-Note, that the files in the process library can be updated, so the files in this documentation might not be up to date.
+
+    The process files can be found
+    here: [Local Contexts Hub Labels - Dataverse (Github process library)](https://github.com/RIDAGOP-Toolkit/process-library/tree/main/local_contexts_hub_labels_dataverse).
+    Note, that the files in the process library can be updated, so the files in this documentation might not be up to date.
+
 
 The Local Contexts Hub Labels Process is available as a generated user interface version and with a html page, which
 includes UI elements for that process.
@@ -338,7 +340,7 @@ not publish the dataset.
 ## Data Access Request
 
 The 2nd example process is for data access application.
-In fact it consists of 2 separate processes, one for __data usage applications__ and another for __data usage
+In fact, it consists of 2 separate processes, one for __data usage applications__ and another for __data usage
 applications__.
 Even tho some types of data repositories provide some kind of restricted data access features, this might not always be
 the case.
@@ -351,8 +353,8 @@ Instead, the process we implement depend on 2 simple components: A singlefile ph
 which allows to store and access data usage application and email for making the request communication.
 Therefor the data-managers do not need to register nor enter the dataverse instance.
 
-While the process can do the, it is more for demonstration purposes of the toolkit,
-and would need to be extended to meet the requirements of specific use cases.
+While the process is functional, it is more for demonstration purposes of the toolkit,
+and would need to be extended to meet the requirements of real use cases.
 The two processes make use of the toolkit feature to create the user interface for the process. The generation of
 user interfaces is intended for rapid testing and prototyping of processes.
 

@@ -31,6 +31,9 @@
             - **`activities`** *(array)*: The list of activities that are executed when the sequence is triggered.
                 - **Items** *(string)*: The name of an activity.
     - **`autostart`**: Activities that are started on page load.
+        - **`One of (1)`** *(string)*: One activity name.
+        - **`One of (2)`** *(array)*: A list of activity names.
+            - **Items** *(string)*
 - **`scriptUri`** *(string/format: uri-reference)*: The URI of the script that is used to run the process.
 ## Definitions
 
@@ -42,6 +45,9 @@
     - **`parameters`** *(object)*: Parameters that are usable by all activities of this service.
         - **Additional Properties**: Refer to *[P-Parameter](#p-parameter)*.
     - **`autostart`**: Activities that are started on page load.
+        - **`Any of (1)`** *(string)*: One activity name.
+        - **`Any of (2)`** *(array)*: A list of activity names.
+            - **Items** *(string)*
     - **`bridge`**: The bridge of this service. Refer to *[P-BridgeDefinition](#p-bridgedefinition)*.
     - **`activities`** *(object)*: The activities of this service.
         - **Additional Properties**: Each key specifies the name of an activity. Refer to *[P-Activity](#p-activity)*.
@@ -81,7 +87,11 @@
         - **`resultData`** *(object)*: Instead of executing the activity, the resultData is used as the result of the activity.
     - **`One of (1)`**
         - **`title`** *(string)* **(required)** : The user visible title of the activity.
-        - **`bridgeCapability`** **(required)** : The name of the bridge capability that is used to execute the activity. Refer to *[capabilities_list](/Schema/capabilities_list)*.
+        - **`bridgeCapability`** **(required)** : The name of the bridge capability that is used to execute the activity.
+            - **`Any of (1)`**
+                - **Additional Properties** *(string)*
+            - **`Any of (2)`**
+                - **`^_.*$`** *(string)*
     - **`One of (2)`**
         - **`title`** *(string)* **(required)** : The user visible title of the activity.
         - **`moduleFunction`** *(string)* **(required)** : The name of the module function (??? FROM WHERE) that is used to execute the activity.
@@ -146,7 +156,11 @@
             - **`resultData`** *(object)*: Instead of executing the activity, the resultData is used as the result of the activity.
         - **`One of (1)`**
             - **`title`** *(string)* **(required)** : The title of the activity.
-            - **`bridgeCapability`** **(required)** : The bridge-capability that is used for this activity. Refer to *[capabilities_list](/Schema/capabilities_list)*.
+            - **`bridgeCapability`** **(required)** : The bridge-capability that is used for this activity.
+                - **`Any of (1)`**
+                    - **Additional Properties** *(string)*
+                - **`Any of (2)`**
+                    - **`^_.*$`** *(string)*
         - **`One of (2)`**
             - **`title`** *(string)* **(required)** : The title of the activity.
             - **`moduleFunction`** *(string)* **(required)** : The function that is used to execute the activity.
@@ -156,8 +170,8 @@
         - **`activityName`** *(string)* **(required)** : The name of the activity that should be executed.
         - **`subActivities`** *(object)*: Sub-activities are activities that are executed after this parent activity is executed.
             - **Additional Properties**
-                - **`One of (1)`**: A normal activity. Refer to *[P-Activity](#p-activity)*.
-                - **`One of (2)`**: An activity of reference activity. Refer to *[P-CommonActivity](#p-commonactivity)*.
+                - **`Any of (1)`**: A normal activity. Refer to *[P-Activity](#p-activity)*.
+                - **`Any of (2)`**: An activity of reference activity. Refer to *[P-CommonActivity](#p-commonactivity)*.
         - **`debug`** *(object)*: Some debug related settings for the activity.
             - **`execute`** *(boolean)*: If false, the activity is not executed (default true).
             - **`resultData`** *(object)*: Instead of executing the activity, the resultData is used as the result of the activity.
@@ -174,25 +188,36 @@
     - **`fileInput`** *(string)*: Data from a file-input field UI-Element.
     - **`store`**: Data from the store. Refer to *[P-StoreAccess](#p-storeaccess)*.
     - **`generate`** *(object)*: Generate a value based on an activity.
-        - **`bridgeCapability`** *(string)*: The name of the bridge capability that is used to execute the activity.
+        - **`bridgeCapability`**: The name of the bridge capability that is used to execute the activity.
+            - **`Any of (1)`**
+                - **Additional Properties** *(string)*
+            - **`Any of (2)`**
+                - **`^_.*$`** *(string)*
         - **`moduleFunction`** *(string)*: The name of the module function (??? FROM WHERE) that is used to execute the activity.
         - **`parameters`** *(object)*: Parameters that are required by this activity.
             - **Additional Properties**: A parameter-name defined by the bridgeCapability or moduleFunction defined for this 'generate' parameters. Refer to *[P-Parameter](#p-parameter)*.
     - **`dynamic`** *(boolean)*: if true, the parameter is not passed to the activity, but is used to generate a dynamic UI.
     - **`comment`** *(string)*: A comment for other developers.
     - **`fromQueryParam`** *(string)*: Overwrite const with queryParam of this name (works for text inputs and constant) parameters.
-## P-ServiceBridge
-- **`P-ServiceBridge`** *(object)*: The bridge for this service.
-    - **`One of (1)`**
-        - **`uri`** *(string/format: uri-reference)* **(required)** : The URI of the bridge description json file.
-    - **`One of (2)`**
-        - **`instance`** **(required)** : The bridge description. Refer to *[bridge](/Schema/bridge)*.
 ## P-BridgeDefinition
 - **`P-BridgeDefinition`** *(object)*: The bridge definition, containing the source (either uri or the whole instance) and some additional properties.
     - **`source`** **(required)** : The source (uri or instance). Refer to *[P-ServiceBridge](#p-servicebridge)*.
     - **`server`**: The server host of this service bridge. Refer to *[P-BridgeServerHost](#p-bridgeserverhost)*.
     - **`authorization`** *(object)*: From where to take the authorization code for OpenAPI bridge. Usually a API/Auth-Token.
         - **Additional Properties**
+            - **`One of (1)`** *(string)*: A constant value that contains the token (Only recommended for testing purposes).
+            - **`One of (2)`** *(object)*
+                - **`field`** *(string)*: A field (Inputfield UI-Element) that contains the token.
+            - **`One of (3)`** *(object)*
+                - **`queryParam`** *(string)*: A URL-query parameter that contains the token.
+            - **`One of (4)`** *(object)*
+                - **`constant`** *(string)*: A constant value that contains the token (Only recommended for testing purposes).
+## P-ServiceBridge
+- **`P-ServiceBridge`** *(object)*: The bridge for this service.
+    - **`One of (1)`**
+        - **`uri`** *(string/format: uri-reference)* **(required)** : The URI of the bridge description json file.
+    - **`One of (2)`**
+        - **`instance`** **(required)** : The bridge description. Refer to *[bridge](/Schema/bridge)*.
 ## P-BridgeServerHost
 - **`P-BridgeServerHost`**: The server host of this service bridge.
     - **`One of (1)`** *(string/format: uri)*: The server host of this service bridge.
