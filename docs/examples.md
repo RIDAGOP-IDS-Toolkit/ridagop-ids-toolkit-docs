@@ -28,7 +28,6 @@ already existing catalog and collections management systems.
     here: [Local Contexts Hub Labels - Dataverse (Github process library)](https://github.com/RIDAGOP-Toolkit/process-library/tree/main/local_contexts_hub_labels_dataverse).
     Note, that the files in the process library can be updated, so the files in this documentation might not be up to date.
 
-
 The Local Contexts Hub Labels Process is available as a generated user interface version and with a html page, which
 includes UI elements for that process.
 
@@ -388,7 +387,12 @@ applicant. As explained above, we are using a single file php application for st
 set the bridge here, which is the description of an OpenAPI based bridge, with operations for reading, writing and
 deleting data.
 
-The process defines one activity for that service, which is called 'store'. 
+<!-- The process defines one activity for that service, which is called 'store'. -->
 
-TODO Query Parmas and do this:
-http://localhost:8080/?process=data_request&receiver=cool.com&datasetId=dasjdkald
+The process-page for making data requests can include query-parameter in the url, namely `reciever`, which allows to
+specify the email address of the data owner and `datasetId`, which allows to directly set the dataset id (unique id on
+dataverse).
+
+The process for responding to a request has two variants. On the demo-page we included the slightly more complex
+one `data_request_restricted_response.json`, which allows the data owner to decide, which files they want to make
+accessible.
